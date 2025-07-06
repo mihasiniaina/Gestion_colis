@@ -10,8 +10,9 @@ public class BD {
     private static final String password = "Coldestshoot";
 
     public static Connection connexion() {
-        try {
-            return DriverManager.getConnection(url, user, password);
+        try (Connection conn = DriverManager.getConnection(url, user, password)){
+            System.err.println("Connexion réussi");
+            return conn;
         } catch (SQLException e) {
             System.err.println("Erreur JDBC : " + e.getMessage());
             return null;
