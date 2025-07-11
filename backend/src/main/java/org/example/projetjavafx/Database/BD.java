@@ -10,7 +10,8 @@ public class BD {
     private static final String password = "Coldestshoot";
 
     public static Connection connexion() {
-        try (Connection conn = DriverManager.getConnection(url, user, password)){
+        try {
+            Connection conn = DriverManager.getConnection(url, user, password);
             System.err.println("Connexion réussi");
             return conn;
         } catch (SQLException e) {

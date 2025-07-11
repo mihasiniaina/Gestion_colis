@@ -9,6 +9,7 @@ module org.example.frontend {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires org.example.projetjavafx;
 
     opens org.example.frontend to javafx.fxml;
     exports org.example.frontend;
