@@ -13,4 +13,4 @@ module org.example.frontend {
 
     opens org.example.frontend to javafx.fxml;
     exports org.example.frontend;
-}
+}   

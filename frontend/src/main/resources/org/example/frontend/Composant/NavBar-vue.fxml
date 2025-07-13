@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="898.0" prefWidth="356.0" spacing="30.0" style="-fx-background-color: #20323D;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="121.0" prefWidth="389.0" spacing="20.0">
+         <padding>
+            <Insets bottom="30.0" left="50.0" right="30.0" top="30.0" />
+         </padding>
+         <children>
+            <ImageView fitHeight="74.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/TRansIf-logo.png" />
+               </image></ImageView>
+            <Label prefHeight="80.0" prefWidth="229.0" text="TransIF" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: #313F49; -fx-border-radius: 120;">
+         <graphic>
+            <HBox prefHeight="63.0" prefWidth="338.0" spacing="30.0">
+               <children>
+                  <ImageView fitHeight="77.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/icons8-setting-50.png" />
+                     </image></ImageView>
+                  <Label prefHeight="102.0" prefWidth="187.0" text="Logistique" textFill="#f5eeee">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="30.0" right="40.0" top="5.0" />
+               </padding>
+            </HBox>
+         </graphic></Button>
+      <Button layoutX="20.0" layoutY="174.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: #313F49; -fx-border-radius: 120;">
+         <graphic>
+            <HBox prefHeight="63.0" prefWidth="338.0" spacing="30.0">
+               <children>
+                  <ImageView fitHeight="77.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/icons8-parcel-64(1).png" />
+                     </image></ImageView>
+                  <Label prefHeight="74.0" prefWidth="180.0" text="Colis" textFill="#f5eded">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="30.0" right="40.0" top="5.0" />
+               </padding>
+            </HBox>
+         </graphic>
+      </Button>
+      <Button layoutX="20.0" layoutY="174.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: #313F49; -fx-border-radius: 120;">
+         <graphic>
+            <HBox prefHeight="63.0" prefWidth="338.0" spacing="30.0">
+               <children>
+                  <ImageView fitHeight="77.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/icons8-money-50(3).png" />
+                     </image></ImageView>
+                  <Label prefHeight="102.0" prefWidth="187.0" text="Revenu" textFill="#f5eeee">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="30.0" right="40.0" top="5.0" />
+               </padding>
+            </HBox>
+         </graphic>
+      </Button>
+   </children>
+   <padding>
+      <Insets left="10.0" right="10.0" />
+   </padding>
+</VBox>
