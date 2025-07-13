@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 public class Envoyer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idenvoi;
+
 
     @ManyToOne
     @JoinColumn(name = "idvoit")
@@ -37,9 +39,8 @@ public class Envoyer {
 
     public Envoyer(){}
 
-    public Envoyer( int idenvoi, Voiture voiture, String colis, String nomEnvoyeur, String emailEnvoyeur,
+    public Envoyer(Voiture voiture, String colis, String nomEnvoyeur, String emailEnvoyeur,
                     LocalDateTime date_envoi, int frais, String nomRecepteur, String contactRecepteur){
-        this.idenvoi = idenvoi;
         this.voiture = voiture;
         this.colis = colis;
         this.nomEnvoyeur = nomEnvoyeur;
@@ -74,10 +75,6 @@ public class Envoyer {
 
     public void setNomEnvoyeur(String nomEnvoyeur) {
         this.nomEnvoyeur = nomEnvoyeur;
-    }
-
-    public void setFrais(int frais) {
-        this.frais = frais;
     }
 
     public void setContactRecepteur(String contactRecepteur) {
