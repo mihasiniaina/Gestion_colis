@@ -9,7 +9,7 @@ public interface EnvoyerDAO {
     String ajouterEnvoi(String idvoit, String colis, String nomEnvoyeur, String emailEnvoyeur,
                         LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur);
     List<Envoyer> listerEnvoi();
-    String modifierEnvoi(int idenvoi, String idvoit, String colis, String nomEnvoyeur, String emailEnvoyeur,
+    String modifierEnvoi(int idenvoi, String colis, String nomEnvoyeur, String emailEnvoyeur,
                          LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur);
     String supprimerEnvoi(int idenvoi);
 }

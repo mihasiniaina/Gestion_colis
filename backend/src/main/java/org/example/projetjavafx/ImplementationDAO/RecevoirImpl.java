@@ -1,7 +1,8 @@
 package org.example.projetjavafx.ImplementationDAO;
 
-import org.example.projetjavafx.DAO.EnvoyerDAO;
+import org.example.projetjavafx.DAO.RecevoirDAO;
 import org.example.projetjavafx.Model.Envoyer;
+import org.example.projetjavafx.Model.Recevoir;
 import org.example.projetjavafx.Model.Voiture;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,29 +12,24 @@ import org.hibernate.query.Query;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class EnvoyerImpl implements EnvoyerDAO {
+public class RecevoirImpl implements RecevoirDAO {
     private SessionFactory sessionFactory;
 
-    public EnvoyerImpl(SessionFactory sessionFactory){
+    public RecevoirImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
 
-
     @Override
-    public String ajouterEnvoi(String idvoit, String colis, String nomEnvoyeur, String emailEnvoyeur,
-                               LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur)
-    {
+    public String ajouterRecu(int idenvoi, LocalDateTime date_recept) {
         try(Session session = sessionFactory.openSession()){
 
             Transaction tx = session.beginTransaction();
 
-            Voiture v = session.get(Voiture.class, idvoit);
-            int frais = v.getItineraire().getFrais();
+            Envoyer e = session.get(Envoyer.class, idenvoi);
 
-            Envoyer e = new Envoyer(v, colis, nomEnvoyeur, emailEnvoyeur, date_envoi, frais, nomRecepteur,
-                    contactRecepteur);
+            Recevoir r = new Recevoir(e, date_recept);
 
-            session.persist(v);
+            session.persist(r);
             tx.commit();
 
             return "Ajout réussi";
@@ -47,10 +43,10 @@ public class EnvoyerImpl implements EnvoyerDAO {
     }
 
     @Override
-    public List<Envoyer> listerEnvoi() {
+    public List<Recevoir> listerRecu() {
         try(Session session = sessionFactory.openSession()){
 
-            Query<Envoyer> query = session.createQuery("FROM Envoyer ", Envoyer.class);
+            Query<Recevoir> query = session.createQuery("FROM Recevoir ", Recevoir.class);
 
             return query.list();
 
@@ -60,22 +56,15 @@ public class EnvoyerImpl implements EnvoyerDAO {
     }
 
     @Override
-    public String modifierEnvoi(int idenvoi, String colis, String nomEnvoyeur, String emailEnvoyeur,
-                                LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur)
-    {
+    public String modifierRecu(int idrecept, LocalDateTime date_recept) {
         try(Session session = sessionFactory.openSession()){
 
             Transaction tx = session.beginTransaction();
 
-            Envoyer e = session.get(Envoyer.class, idenvoi);
-            e.setColis(colis);
-            e.setNomEnvoyeur(nomEnvoyeur);
-            e.setEmailEnvoyeur(emailEnvoyeur);
-            e.setDate_envoi(date_envoi);
-            e.setNomRecepteur(nomRecepteur);
-            e.setContactRecepteur(contactRecepteur);
+            Recevoir r = session.get(Recevoir.class, idrecept);
+            r.setDate_recept(date_recept);
 
-            session.merge(e);
+            session.merge(r);
 
             tx.commit();
 
@@ -87,13 +76,13 @@ public class EnvoyerImpl implements EnvoyerDAO {
     }
 
     @Override
-    public String supprimerEnvoi(int idenvoi) {
+    public String supprimerRecu(int idrecept) {
         try(Session session = sessionFactory.openSession()){
 
             Transaction tx = session.beginTransaction();
-            Envoyer e = session.get(Envoyer.class, idenvoi);
+            Recevoir r = session.get(Recevoir.class, idrecept);
 
-            session.remove(e);
+            session.remove(r);
             tx.commit();
 
             return "Suppression réussie";

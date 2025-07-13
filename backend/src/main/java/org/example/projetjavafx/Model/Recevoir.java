@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Table( name = "recevoir")
 public class Recevoir {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idrecept;
 
     @ManyToOne
@@ -18,8 +19,7 @@ public class Recevoir {
     private LocalDateTime date_recept;
 
     public Recevoir(){}
-    public Recevoir( int idrecept, Envoyer envoi, LocalDateTime date_recept){
-        this.idrecept = idrecept;
+    public Recevoir( Envoyer envoi, LocalDateTime date_recept){
         this.envoi = envoi;
         this.date_recept = date_recept;
     }
