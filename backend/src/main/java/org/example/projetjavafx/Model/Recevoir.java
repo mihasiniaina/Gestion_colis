@@ -17,6 +17,7 @@ public class Recevoir {
     @Column(nullable = false)
     private LocalDateTime date_recept;
 
+    public Recevoir(){}
     public Recevoir( int idrecept, Envoyer envoi, LocalDateTime date_recept){
         this.idrecept = idrecept;
         this.envoi = envoi;
