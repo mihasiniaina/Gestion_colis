@@ -1,5 +1,8 @@
 package org.example.projetjavafx.ImplementationDAO;
 
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.PersistenceException;
 import org.example.projetjavafx.DAO.ItineraireDAO;
 import org.example.projetjavafx.Model.Itineraire;
 import org.hibernate.Session;
@@ -23,11 +26,15 @@ public class ItineraireImpl implements ItineraireDAO {
             String sql = "SELECT codeit FROM itineraire ORDER BY CAST(SUBSTRING(codeit from 3) AS INTEGER) " +
                     "DESC LIMIT 1 ";
 
-            String dernierId = session.createNativeQuery(sql, String.class).getSingleResult();
+            try{
+                String dernierId = session.createNativeQuery(sql, String.class).getSingleResult();
 
-            int num = Integer.parseInt(dernierId.substring(2));
+                int num = Integer.parseInt(dernierId.substring(2));
 
-            return "It" + ( num + 1 );
+                return "It" + ( num + 1 );
+            }catch (PersistenceException e ){
+                return "It1";
+            }
         }
     }
 

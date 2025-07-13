@@ -20,4 +20,6 @@ module org.example.projetjavafx {
     exports org.example.projetjavafx.util;
 
     opens org.example.projetjavafx.Model to org.hibernate.orm.core;
+    exports org.example.projetjavafx.DAO;
+    exports org.example.projetjavafx.ImplementationDAO;
 }
