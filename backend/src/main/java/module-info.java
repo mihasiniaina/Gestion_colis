@@ -11,6 +11,7 @@ module org.example.projetjavafx {
     requires eu.hansolo.tilesfx;
     requires java.sql;
     requires jakarta.persistence;
+    requires org.hibernate.orm.core;
 
     opens org.example.projetjavafx to javafx.fxml;
     exports org.example.projetjavafx;
