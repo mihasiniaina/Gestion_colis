@@ -10,6 +10,7 @@ module org.example.projetjavafx {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.sql;
+    requires jakarta.persistence;
 
     opens org.example.projetjavafx to javafx.fxml;
     exports org.example.projetjavafx;
