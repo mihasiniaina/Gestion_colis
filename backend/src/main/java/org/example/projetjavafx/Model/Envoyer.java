@@ -1,22 +1,47 @@
 package org.example.projetjavafx.Model;
 
+import  jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table( name = "envoyer")
 public class Envoyer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idenvoi;
-    private String idvoit;
+
+
+    @ManyToOne
+    @JoinColumn(name = "idvoit")
+    private Voiture voiture;
+
+    @Column(nullable = false)
     private String colis;
+
+    @Column(nullable = false)
     private String nomEnvoyeur;
+
+    @Column(nullable = false)
     private String emailEnvoyeur;
+
+    @Column(nullable = false)
     private LocalDateTime date_envoi;
+
+    @Column(nullable = false)
     private int frais ;
+
+    @Column(nullable = false)
     private String nomRecepteur;
+
+    @Column(nullable = false)
     private String contactRecepteur;
 
-    public Envoyer( int idenvoi, String idvoit, String colis, String nomEnvoyeur, String emailEnvoyeur,
+    public Envoyer(){}
+
+    public Envoyer(Voiture voiture, String colis, String nomEnvoyeur, String emailEnvoyeur,
                     LocalDateTime date_envoi, int frais, String nomRecepteur, String contactRecepteur){
-        this.idenvoi = idenvoi;
-        this.idvoit = idvoit;
+        this.voiture = voiture;
         this.colis = colis;
         this.nomEnvoyeur = nomEnvoyeur;
         this.emailEnvoyeur = emailEnvoyeur;
@@ -27,7 +52,7 @@ public class Envoyer {
     }
 
     public int getIdenvoi(){ return idenvoi;}
-    public String getIdvoit(){ return idvoit;}
+    public Voiture getVoiture() {return voiture;}
     public String getColis(){ return colis;}
     public String getNomEnvoyeur(){ return nomEnvoyeur;}
     public String getEmailEnvoyeur(){ return emailEnvoyeur;}
@@ -35,4 +60,28 @@ public class Envoyer {
     public int getFrais(){ return frais;}
     public String getNomRecepteur(){ return nomRecepteur;}
     public String getContactRecepteur(){ return contactRecepteur;}
+
+    public void setColis(String colis) {
+        this.colis = colis;
+    }
+
+    public void setDate_envoi(LocalDateTime date_envoi) {
+        this.date_envoi = date_envoi;
+    }
+
+    public void setEmailEnvoyeur(String emailEnvoyeur) {
+        this.emailEnvoyeur = emailEnvoyeur;
+    }
+
+    public void setNomEnvoyeur(String nomEnvoyeur) {
+        this.nomEnvoyeur = nomEnvoyeur;
+    }
+
+    public void setContactRecepteur(String contactRecepteur) {
+        this.contactRecepteur = contactRecepteur;
+    }
+
+    public void setNomRecepteur(String nomRecepteur) {
+        this.nomRecepteur = nomRecepteur;
+    }
 }
