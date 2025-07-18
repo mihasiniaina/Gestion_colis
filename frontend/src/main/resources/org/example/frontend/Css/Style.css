@@ -1,0 +1,11 @@
+/* style pour navbarmain*/
+.FooterToolbar {
+    -fx-background-color: #20303D;
+    -fx-pref-height: 100px;
+    -fx-pref-width: 748px;
+    -fx-background-radius: 30px;
+}
+/*style pour toolbar-boutton-active*/
+.FooterToolbar .active-button{
+    -fx-border-color : transparent transparent #ADA296 transparent;
+}
