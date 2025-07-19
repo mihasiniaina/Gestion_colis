@@ -2,9 +2,12 @@ package org.example.frontend.controllers.Logistique;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.Node;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -19,31 +22,34 @@ public class LogistiqueController {
     @FXML
     public void initialize() {
         try {
-            // Charger dynamiquement la toolbar au démarrage
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/frontend/Vue/LogToolbar.fxml"));
-            Node toolbar = loader.load();
+            // Charger dynamiquement la toolbar
+            FXMLLoader toolbarLoader = new FXMLLoader(getClass().getResource("/org/example/frontend/Composant/Logistique/LogistiqueNavBar.fxml"));
+            Node toolbar = toolbarLoader.load();
             toolbarContainer.getChildren().add(toolbar);
+            HBox.setMargin(toolbar, new Insets(0, 0, 70, 0));
+
+            // Charger la vue itinéraire
+            FXMLLoader centerLoader = new FXMLLoader(getClass().getResource("/org/example/frontend/Composant/Logistique/Itineraire.fxml"));
+            Node centerContent = centerLoader.load();
+
+            // Assurer que le contenu central prend tout l’espace disponible
+            BorderPane.setMargin(centerContent, new Insets(0));
+            AffichageLogistique.setCenter(centerContent);
+
+            // Étirer le node au maximum
+            centerContent.maxWidth(Double.MAX_VALUE);
+            centerContent.maxHeight(Double.MAX_VALUE);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Méthodes appelées par la toolbar (ces fonctions doivent être appelées depuis LogToolbarController)
     public void ShowItineraire() {
-        try {
-            BorderPane page = FXMLLoader.load(getClass().getResource("/org/example/frontend/Vue/Itineraire.fxml"));
-            AffichageLogistique.setCenter(page);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // à implémenter si besoin
     }
 
     public void ShowVoiture() {
-        try {
-            BorderPane page = FXMLLoader.load(getClass().getResource("/org/example/frontend/Vue/Voiture.fxml"));
-            AffichageLogistique.setCenter(page);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // à implémenter si besoin
     }
 }
