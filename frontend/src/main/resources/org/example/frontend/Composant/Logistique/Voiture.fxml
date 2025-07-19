@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="750.0" maxWidth="-Infinity" prefHeight="712.0" prefWidth="1197.0" style="-fx-background-color: #88A2AA;" styleClass="DivFlottant" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Logistique.VoitureContoller">
+
+    <children>
+        <TableView layoutY="-1.0" prefHeight="420.0" prefWidth="864.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
+            <columns>
+                <TableColumn prefWidth="197.0" styleClass="HeaderTableView" text="Matricule" />
+                <TableColumn prefWidth="197.0" styleClass="HeaderTableView" text="Design" />
+                <TableColumn prefWidth="234.0" styleClass="HeaderTableView" text="Ville de départ" />
+                <TableColumn prefWidth="235.0" styleClass="HeaderTableView" text="Ville d'arrivée" />
+            </columns>
+        </TableView>
+        <VBox fx:id="FormVoiture" alignment="CENTER" layoutX="877.0" layoutY="49.0" prefHeight="620.0" prefWidth="308.0" spacing="40.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="877.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="49.0">
+
+        </VBox>
+    </children>
+</AnchorPane>

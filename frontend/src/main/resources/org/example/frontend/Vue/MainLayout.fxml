@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="Mainview" prefHeight="1000.0" prefWidth="1512.0"
+            xmlns="http://javafx.com/javafx/22.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.frontend.controllers.Main.MainController">
+
+    <left>
+        <!-- La barre de navigation sera injectée ici par code -->
+    </left>
+
+    <center>
+        <BorderPane fx:id="ChangeView" prefHeight="1000.0" prefWidth="1177.0" style="-fx-background-color: #FFFFFF;">
+        </BorderPane>
+    </center>
+
+</BorderPane>
