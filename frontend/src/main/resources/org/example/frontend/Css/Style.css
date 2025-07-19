@@ -13,9 +13,9 @@
 }
 
 .table-view .column-header {
-    -fx-size: 50px; /* Défaut : 28px */
+    -fx-size: 50px;
 }
-/*Modifie le header du Log-Iti-table*/
+/*header du LogTable*/
 .table-view .column-header .label {
     -fx-text-fill: white;
     -fx-font-size: 20px;
@@ -23,4 +23,9 @@
 }
 .DivFlottant{
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 25, 0.3, 0, 4);
+}
+/*Input LogForm*/
+.text-field, .spinner {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
 }

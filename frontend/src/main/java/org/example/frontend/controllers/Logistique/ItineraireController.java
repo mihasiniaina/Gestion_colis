@@ -1,0 +1,42 @@
+package org.example.frontend.controllers.Logistique;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.layout.VBox;
+import java.io.IOException;
+
+public class ItineraireController {
+
+    @FXML
+    private VBox FormItineraire;
+
+    @FXML
+    public void initialize() {
+        ShowAdd(); // Appelle directement la méthode pour afficher le formulaire "Add"
+    }
+
+    @FXML
+    public void ShowAdd() {
+        loadForm("/org/example/frontend/Composant/Logistique/AddFormIt.fxml");
+    }
+
+    @FXML
+    public void ShowEdit() {
+        loadForm("/org/example/frontend/Composant/Logistique/EditFormIt.fxml");
+    }
+
+    private void loadForm(String fxmlPath) {
+        try {
+            // Nettoie tous les enfants (au lieu de .remove(0), plus sûr)
+            FormItineraire.getChildren().clear();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Node formView = loader.load();
+
+            FormItineraire.getChildren().add(formView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
