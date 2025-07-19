@@ -1,7 +1,5 @@
 package org.example.projetjavafx.ImplementationDAO;
 
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.PersistenceException;
 import org.example.projetjavafx.DAO.ItineraireDAO;
 import org.example.projetjavafx.Model.Itineraire;
@@ -38,28 +36,53 @@ public class ItineraireImpl implements ItineraireDAO {
         }
     }
 
+    @Override
+    public Boolean checkIt(String villedep, String villearr) {
+        try(Session session = sessionFactory.openSession()){
+
+            String hql ="SELECT i.codeit from Itineraire i where villedep = :villedep and villear = :villearr";
+            Query<String> query = session.createQuery(hql, String.class);
+            query.setParameter("villedep", villedep);
+            query.setParameter("villearr", villearr);
+
+            List<String> res = query.getResultList();
+
+            return res.isEmpty();
+
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 
     @Override
     public String ajouterItineraire(String villedep, String villearr, int frais){
 
-        String codeit = newId();
+        Boolean check = checkIt(villedep, villearr);
 
-        Itineraire i = new Itineraire(codeit, villedep, villearr, frais);
+        if (check == true){
+            String codeit = newId();
 
-        try(Session session = sessionFactory.openSession()){
+            Itineraire i = new Itineraire(codeit, villedep, villearr, frais);
 
-            Transaction tx = session.beginTransaction();
+            try(Session session = sessionFactory.openSession()){
 
-            session.persist(i);
-            tx.commit();
+                Transaction tx = session.beginTransaction();
 
-            return "Ajout réussi";
+                session.persist(i);
+                tx.commit();
 
-        }catch (Exception e){
+                return "Ajout réussi";
 
-            System.err.println("Erreur lors de l'ajout : " + e.getMessage());
-            return null;
+            }catch (Exception e){
 
+                System.err.println("Erreur lors de l'ajout : " + e.getMessage());
+                return null;
+
+            }
+        }else{
+            return "L'itinéraire existe déjà";
         }
     }
 

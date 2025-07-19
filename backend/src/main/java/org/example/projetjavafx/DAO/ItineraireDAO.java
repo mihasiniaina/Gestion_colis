@@ -7,6 +7,7 @@ import java.util.List;
 public interface ItineraireDAO {
 
     String newId();
+    Boolean checkIt(String villedep, String villearr);
     String ajouterItineraire(String villedep, String villearr, int frais);
     List<Itineraire> listerItineraire();
     String modifierItineraire(String codeit, String villedep, String villearr, int frais);
