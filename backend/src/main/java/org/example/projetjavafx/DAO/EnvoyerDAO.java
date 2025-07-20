@@ -12,4 +12,5 @@ public interface EnvoyerDAO {
     String modifierEnvoi(int idenvoi, String colis, String nomEnvoyeur, String emailEnvoyeur,
                          LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur);
     String supprimerEnvoi(int idenvoi);
+    void genererPDF(int idenvoi);
 }

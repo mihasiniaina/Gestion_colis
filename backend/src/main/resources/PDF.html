@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        @page {
+          size: 600px 520px;
+          margin: 10px;
+        }
+
+       body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 550px;
+      height: 400px;
+      padding: 40px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: #fdfdfd;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    .value {
+      color: #2c3e50;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+    }
+    </style>
+
+
+</head>
+<body>
+
+<h1>Reçu <strong>N°${idenvoi}</strong></h1>
+
+<div class="field">
+    <span class="label">Date d’envoi :</span>
+    <span class="value">${date}</span>
+</div>
+
+<div class="field">
+    <span class="label">Nom de l’Envoyeur :</span>
+    <span class="value">${expediteur}</span>
+</div>
+
+<div class="field">
+    <span class="label">Voiture N°</span>
+    <span class="value">${voiture} / </span>
+    <span class="label">Itinéraire :</span>
+    <span class="value"> de ${villedep} vers ${villearr}</span>
+</div>
+
+<div class="field">
+    <span class="label">Colis :</span>
+    <span class="value">${colis}</span>
+</div>
+
+<div class="field">
+    <span class="label">Frais :</span>
+    <span class="value">${frais},00 Ar</span>
+</div>
+
+<div class="field">
+    <span class="label">Nom du Récepteur :</span>
+    <span class="value">${recepteur}</span>
+</div>
+
+<div class="field">
+    <span class="label">Contact du Récepteur :</span>
+    <span class="value">${contact}</span>
+</div>
+
+<div class="footer">
+    Merci pour votre confiance. <br/> TransIF Inc.
+</div>
+
+</body>
+</html>

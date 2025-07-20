@@ -8,7 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
 import jakarta.mail.*;
@@ -25,16 +28,19 @@ public class RecevoirImpl implements RecevoirDAO {
     }
 
     @Override
-    public void envoyerMail(int idenvoi) {
+    public void envoyerMail(int idenvoi, LocalDateTime date_recept) {
 
         try(Session sessionBD = sessionFactory.openSession()){
 
             Envoyer e = sessionBD.get(Envoyer.class, idenvoi);
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            String dateFormatee = date_recept.format(formatter);
+
             String emailEnvoyeur = e.getEmailEnvoyeur();
             String recepteur = e.getNomRecepteur();
+            String colis = e.getColis();
 
-            String corps = "Votre colis a été reçu par : " + recepteur + ". \n Merci de votre confiance !";
 
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -53,7 +59,11 @@ public class RecevoirImpl implements RecevoirDAO {
                 message.setFrom(new InternetAddress(exp));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailEnvoyeur));
                 message.setSubject(sujet);
-                message.setText(corps);
+                String contenu = Files.readString(Path.of("backend/src/main/resources/email.html"));
+                contenu = contenu.replace("{{date}}", dateFormatee).replace("{{recepteur}}", recepteur)
+                        .replace("{{colis}}", colis);
+
+                message.setContent(contenu, "text/html; charset=UTF-8");
 
                 // Envoi
                 Transport.send(message);
@@ -81,6 +91,8 @@ public class RecevoirImpl implements RecevoirDAO {
 
             session.persist(r);
             tx.commit();
+
+            envoyerMail(idenvoi, date_recept);
 
             return "Ajout réussi";
 

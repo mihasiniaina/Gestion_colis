@@ -1,5 +1,6 @@
 package org.example.projetjavafx.ImplementationDAO;
 
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import org.example.projetjavafx.DAO.EnvoyerDAO;
 import org.example.projetjavafx.Model.Envoyer;
 import org.example.projetjavafx.Model.Voiture;
@@ -8,8 +9,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class EnvoyerImpl implements EnvoyerDAO {
     private SessionFactory sessionFactory;
@@ -33,7 +42,7 @@ public class EnvoyerImpl implements EnvoyerDAO {
             Envoyer e = new Envoyer(v, colis, nomEnvoyeur, emailEnvoyeur, date_envoi, frais, nomRecepteur,
                     contactRecepteur);
 
-            session.persist(v);
+            session.persist(e);
             tx.commit();
 
             return "Ajout réussi";
@@ -100,6 +109,63 @@ public class EnvoyerImpl implements EnvoyerDAO {
 
         }catch (Exception e){
             return null;
+        }
+    }
+
+    @Override
+    public void genererPDF(int idenvoi) {
+        try (Session session = sessionFactory.openSession()){
+            Envoyer en = session.get(Envoyer.class, idenvoi);
+            try {
+                // Lire le HTML depuis le fichier dans les ressources
+                InputStream inputStream = RecevoirImpl.class.getResourceAsStream("/PDF.html");
+
+                if (inputStream == null) {
+                    throw new IllegalArgumentException("Fichier non trouvé dans les ressources !");
+                }
+
+                String html = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+
+                LocalDateTime date = en.getDate_envoi();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy 'à' HH:mm:ss", Locale.FRANCE);
+                String formatee = date.format(formatter);
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.FRANCE);
+                symbols.setGroupingSeparator(' '); // Séparateur = espace
+
+                DecimalFormat Intformatter = new DecimalFormat("#,###", symbols);
+
+                html = html.replace("${idenvoi}", String.valueOf(idenvoi));
+                html = html.replace("${date}", formatee);
+                html = html.replace("${expediteur}", en.getNomEnvoyeur());
+                html = html.replace("${villedep}", en.getVoiture().getItineraire().getVilledep());
+                html = html.replace("${villearr}", en.getVoiture().getItineraire().getVillearr());
+                html = html.replace("${colis}", en.getColis());
+                html = html.replace("${frais}", Intformatter.format(en.getFrais()));
+                html = html.replace("${recepteur}", en.getNomRecepteur());
+                html = html.replace("${contact}", en.getContactRecepteur());
+                html = html.replace("${voiture}", en.getVoiture().getIdvoit());
+
+                String nomFichier = "Reçu_N°_" + idenvoi+".pdf";
+
+
+
+                // Générer le PDF
+                try (OutputStream os = new FileOutputStream(nomFichier)) {
+                    PdfRendererBuilder builder = new PdfRendererBuilder();
+                    builder.useFastMode();
+                    builder.withHtmlContent(html, null);
+                    builder.toStream(os);
+                    builder.useDefaultPageSize(105.5f, 105.8f, PdfRendererBuilder.PageSizeUnits.MM);
+                    builder.run();
+                }
+
+                System.out.println("PDF généré avec succès ");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            System.err.println("Erreur : " + e.getMessage());
         }
     }
 }

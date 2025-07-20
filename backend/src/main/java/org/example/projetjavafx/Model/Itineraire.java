@@ -2,11 +2,16 @@ package org.example.projetjavafx.Model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table( name = "itineraire")
 public class Itineraire {
     @Id
     private String codeit;
+
+    @OneToMany(mappedBy = "itineraire")
+    private List<Voiture> voitures;
 
     @Column( nullable = false )
     private String villedep;

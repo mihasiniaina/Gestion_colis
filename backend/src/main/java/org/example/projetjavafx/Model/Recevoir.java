@@ -11,21 +11,21 @@ public class Recevoir {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idrecept;
 
-    @ManyToOne
-    @JoinColumn(name = "idenvoi")
-    private Envoyer envoi;
+    @OneToOne
+    @JoinColumn(name = "idenvoi", referencedColumnName = "idenvoi", nullable = false)
+    private Envoyer envoyer;
 
     @Column(nullable = false)
     private LocalDateTime date_recept;
 
     public Recevoir(){}
     public Recevoir( Envoyer envoi, LocalDateTime date_recept){
-        this.envoi = envoi;
+        this.envoyer = envoi;
         this.date_recept = date_recept;
     }
 
     public int getIdrecept(){return idrecept;}
-    public Envoyer getEnvoi() {return envoi;}
+    public Envoyer getEnvoyer() {return envoyer;}
     public LocalDateTime getDate_recept(){return date_recept;}
 
     public void setDate_recept(LocalDateTime date_recept) {
