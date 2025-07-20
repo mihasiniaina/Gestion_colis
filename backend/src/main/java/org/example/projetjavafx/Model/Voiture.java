@@ -12,7 +12,7 @@ public class Voiture {
     private String design;
 
     @ManyToOne
-    @JoinColumn (name = "codeit")
+    @JoinColumn(name = "codeit", referencedColumnName = "codeit", nullable = false)
     private Itineraire itineraire;
 
     public Voiture(){}

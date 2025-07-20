@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial, sans-serif; background-color: #f6f6f6; padding: 20px; margin: 0;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f6f6f6; padding: 20px;">
+    <tr>
+        <td align="center">
+            <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+                <!-- Header -->
+                <tr>
+                    <td align="center" style="background-color:#20303D; color:white; padding: 20px; border-radius: 10px 10px 0 0;">
+                        <h1 style="margin:0; font-size: 20px;">Confirmation de réception du colis</h1>
+                    </td>
+                </tr>
+
+                <!-- Main content -->
+                <tr>
+                    <td style="padding: 20px; color: #20303D; font-size: 14px;">
+                        <p>Bonjour,</p>
+                        <p>Nous vous informons que le colis que vous avez envoyé a bien été réceptionné par son destinataire ce jour.</p>
+
+                        <!-- Colis details -->
+                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px; background-color: #E4B866; color: white; border-radius: 15px; padding: 10px;">
+                            <tr><td style="padding: 10px;"><strong>🚚 Status :</strong> Colis livré avec succès</td></tr>
+                            <tr><td style="padding: 10px;"><strong>📦 Désignation :</strong> {{colis}}</td></tr>
+                            <tr><td style="padding: 10px;"><strong>🕒 Date de réception :</strong> {{date}}</td></tr>
+                            <tr><td style="padding: 10px;"><strong>👤 Destinataire :</strong> {{recepteur}}</td></tr>
+                        </table>
+
+                        <p style="margin-top: 20px;">Nous vous remercions pour votre confiance et restons à votre disposition pour toute question.</p>
+                        <p>Cordialement,</p>
+                        <p><strong>L'équipe transIF</strong></p>
+                    </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                    <td align="center" style="background-color: #20303D; color: rgba(255, 255, 255, 0.404); font-size: 10px; padding: 10px; border-radius: 0 0 10px 10px;">
+                        <p>© 2025 TransIF. Tous droits réservés.</p>
+                        <p>Ce message a été envoyé automatiquement, merci de ne pas y répondre.</p>
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

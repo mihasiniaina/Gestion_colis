@@ -40,7 +40,7 @@ public class ItineraireImpl implements ItineraireDAO {
     public Boolean checkIt(String villedep, String villearr) {
         try(Session session = sessionFactory.openSession()){
 
-            String hql ="SELECT i.codeit from Itineraire i where villedep = :villedep and villear = :villearr";
+            String hql ="SELECT i.codeit from Itineraire i where villedep = :villedep and villearr = :villearr";
             Query<String> query = session.createQuery(hql, String.class);
             query.setParameter("villedep", villedep);
             query.setParameter("villearr", villearr);
@@ -51,7 +51,7 @@ public class ItineraireImpl implements ItineraireDAO {
 
 
         }catch (Exception e){
-            return null;
+            return false;
         }
     }
 

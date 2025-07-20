@@ -12,7 +12,7 @@ public class Recevoir {
     private int idrecept;
 
     @ManyToOne
-    @JoinColumn(name = "idenvoi")
+    @JoinColumn(name = "idenvoi", referencedColumnName = "idenvoi", nullable = false)
     private Envoyer envoi;
 
     @Column(nullable = false)

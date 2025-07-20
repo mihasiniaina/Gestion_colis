@@ -33,7 +33,7 @@ public class EnvoyerImpl implements EnvoyerDAO {
             Envoyer e = new Envoyer(v, colis, nomEnvoyeur, emailEnvoyeur, date_envoi, frais, nomRecepteur,
                     contactRecepteur);
 
-            session.persist(v);
+            session.persist(e);
             tx.commit();
 
             return "Ajout réussi";
