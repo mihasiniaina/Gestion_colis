@@ -65,6 +65,7 @@ public class Envoyer {
     public int getFrais(){ return frais;}
     public String getNomRecepteur(){ return nomRecepteur;}
     public String getContactRecepteur(){ return contactRecepteur;}
+    public boolean isArrived(){return arrived;};
 
     public void setColis(String colis) {
         this.colis = colis;
@@ -92,5 +93,9 @@ public class Envoyer {
 
     public Recevoir getRecevoir() {
         return recevoir;
+    }
+
+    public void setArrived(boolean arrived) {
+        this.arrived = arrived;
     }
 }

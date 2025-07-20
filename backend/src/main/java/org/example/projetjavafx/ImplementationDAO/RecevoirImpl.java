@@ -81,15 +81,18 @@ public class RecevoirImpl implements RecevoirDAO {
 
     @Override
     public String ajouterRecu(int idenvoi, LocalDateTime date_recept) {
+        Transaction tx = null;
         try(Session session = sessionFactory.openSession()){
 
-            Transaction tx = session.beginTransaction();
+            tx = session.beginTransaction();
 
             Envoyer e = session.get(Envoyer.class, idenvoi);
+            e.setArrived(true);
 
             Recevoir r = new Recevoir(e, date_recept);
 
             session.persist(r);
+            session.merge(e);
             tx.commit();
 
             envoyerMail(idenvoi, date_recept);
@@ -97,7 +100,7 @@ public class RecevoirImpl implements RecevoirDAO {
             return "Ajout réussi";
 
         }catch (Exception e){
-
+            if (tx != null) tx.rollback();
             System.err.println("Erreur lors de l'ajout : " + e.getMessage());
             return null;
 
@@ -119,9 +122,10 @@ public class RecevoirImpl implements RecevoirDAO {
 
     @Override
     public String modifierRecu(int idrecept, LocalDateTime date_recept) {
+        Transaction tx = null;
         try(Session session = sessionFactory.openSession()){
 
-            Transaction tx = session.beginTransaction();
+            tx = session.beginTransaction();
 
             Recevoir r = session.get(Recevoir.class, idrecept);
             r.setDate_recept(date_recept);
@@ -133,15 +137,17 @@ public class RecevoirImpl implements RecevoirDAO {
             return "Modification réussie";
 
         }catch (Exception e){
+            if (tx != null) tx.rollback();
             return null;
         }
     }
 
     @Override
     public String supprimerRecu(int idrecept) {
+        Transaction tx = null;
         try(Session session = sessionFactory.openSession()){
 
-            Transaction tx = session.beginTransaction();
+            tx = session.beginTransaction();
             Recevoir r = session.get(Recevoir.class, idrecept);
 
             session.remove(r);
@@ -150,6 +156,7 @@ public class RecevoirImpl implements RecevoirDAO {
             return "Suppression réussie";
 
         }catch (Exception e){
+            if (tx != null) tx.rollback();
             return null;
         }
     }
