@@ -8,53 +8,73 @@
 <VBox fx:controller="org.example.frontend.controllers.Revenu.RevenuComponentController"
       xmlns:fx="http://javafx.com/fxml"
       spacing="20.0"
-      style="-fx-background-color: #f4f6f9;">
+      alignment="TOP_CENTER"
+      style="-fx-background-color: #f4f6f9;"
+      prefWidth="800"
+      prefHeight="600">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <!-- Cartes -->
-    <HBox spacing="20.0">
+    <!-- Cartes - 35% hauteur -->
+    <HBox spacing="20.0"
+          alignment="CENTER"
+          prefHeight="210"
+          VBox.vgrow="NEVER">
         <VBox fx:id="cardMensuel"
               spacing="10.0"
-              prefWidth="200.0"
-              style="-fx-background-color: white; -fx-background-radius: 12;">
-            <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
-            </padding>
-            <Label text="Revenu Mensuel" style="-fx-text-fill: #4caf50; -fx-font-size: 14px;"/>
-            <Label fx:id="labelMensuel" text="Ar 0" style="-fx-font-size: 20px; -fx-text-fill: #333;"/>
+              alignment="CENTER"
+              style="-fx-background-color: white; -fx-background-radius: 12;"
+              prefWidth="200"
+              HBox.hgrow="ALWAYS">
+            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+            <Label text="Revenu Mensuel"
+                   style="-fx-text-fill: #4caf50; -fx-font-size: 14px;"/>
+            <Label fx:id="labelMensuel"
+                   text="Ar 0"
+                   style="-fx-font-size: 20px; -fx-text-fill: #333;"/>
         </VBox>
 
         <VBox fx:id="cardAnnuel"
               spacing="10.0"
-              prefWidth="200.0"
-              style="-fx-background-color: white; -fx-background-radius: 12;">
-            <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
-            </padding>
-            <Label text="Revenu Annuel" style="-fx-text-fill: #2196f3; -fx-font-size: 14px;"/>
-            <Label fx:id="labelAnnuel" text="Ar 0" style="-fx-font-size: 20px; -fx-text-fill: #333;"/>
+              alignment="CENTER"
+              style="-fx-background-color: white; -fx-background-radius: 12;"
+              prefWidth="200"
+              HBox.hgrow="ALWAYS">
+            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+            <Label text="Revenu Annuel"
+                   style="-fx-text-fill: #2196f3; -fx-font-size: 14px;"/>
+            <Label fx:id="labelAnnuel"
+                   text="Ar 0"
+                   style="-fx-font-size: 20px; -fx-text-fill: #333;"/>
         </VBox>
 
         <VBox fx:id="cardTotal"
               spacing="10.0"
-              prefWidth="200.0"
-              style="-fx-background-color: white; -fx-background-radius: 12;">
-            <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
-            </padding>
-            <Label text="Revenu Total" style="-fx-text-fill: #ff9800; -fx-font-size: 14px;"/>
-            <Label fx:id="labelTotal" text="Ar 0" style="-fx-font-size: 20px; -fx-text-fill: #333;"/>
+              alignment="CENTER"
+              style="-fx-background-color: white; -fx-background-radius: 12;"
+              prefWidth="200"
+              HBox.hgrow="ALWAYS">
+            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+            <Label text="Revenu Total"
+                   style="-fx-text-fill: #ff9800; -fx-font-size: 14px;"/>
+            <Label fx:id="labelTotal"
+                   text="Ar 0"
+                   style="-fx-font-size: 20px; -fx-text-fill: #333;"/>
         </VBox>
     </HBox>
 
-    <!-- Graphique -->
-    <VBox spacing="10.0">
+    <!-- Graphique - 65% hauteur -->
+    <VBox spacing="10.0"
+          alignment="CENTER"
+          VBox.vgrow="ALWAYS">
         <Label text="Revenus des 6 derniers mois"
                style="-fx-font-size: 16px; -fx-text-fill: #333;"/>
-        <BarChart fx:id="barChart" prefHeight="300.0">
+        <BarChart fx:id="barChart"
+                  VBox.vgrow="ALWAYS"
+                  style="CHART_COLOR_1: #20323D; CHART_COLOR_2: #2E4A59; CHART_COLOR_3: #3D5E6E; CHART_COLOR_4: #507283; CHART_COLOR_5: #688B9A; CHART_COLOR_6: #80A3B2;"
+                  legendVisible="false">
             <xAxis>
                 <CategoryAxis fx:id="xAxis" label="Mois"/>
             </xAxis>
@@ -63,4 +83,5 @@
             </yAxis>
         </BarChart>
     </VBox>
+
 </VBox>
