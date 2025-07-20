@@ -30,7 +30,7 @@
          </children>
       </HBox>
 
-      <Button fx:id="BtnLogistique" mnemonicParsing="false" onAction="#onShowLogistique" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: #313F49; -fx-background-radius: 20;">
+      <Button fx:id="BtnLogistique" mnemonicParsing="false" onAction="#onShowLogistique" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: transparent; -fx-background-radius: 20;">
          <graphic>
             <HBox prefHeight="63.0" prefWidth="338.0" spacing="30.0">
                <children>
@@ -52,7 +52,7 @@
          </graphic>
       </Button>
 
-      <Button fx:id="BtnColis" mnemonicParsing="false" onAction="#onShowColis" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: #313F49; -fx-background-radius: 20;">
+      <Button fx:id="BtnColis" mnemonicParsing="false" onAction="#onShowColis" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: transparent; -fx-background-radius: 20;">
          <graphic>
             <HBox prefHeight="63.0" prefWidth="338.0" spacing="30.0">
                <children>
@@ -74,7 +74,7 @@
          </graphic>
       </Button>
 
-      <Button fx:id="BtnRevenu" mnemonicParsing="false" onAction="#onShowRevenu" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: #313F49; -fx-background-radius: 20;">
+      <Button fx:id="BtnRevenu" mnemonicParsing="false" onAction="#onShowRevenu" prefHeight="94.0" prefWidth="356.0" style="-fx-background-color: transparent; -fx-background-radius: 20;">
          <graphic>
             <HBox prefHeight="63.0" prefWidth="338.0" spacing="30.0">
                <children>

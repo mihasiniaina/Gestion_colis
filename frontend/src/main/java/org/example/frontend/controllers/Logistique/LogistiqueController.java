@@ -26,7 +26,7 @@ public class LogistiqueController {
             Node toolbar = toolbarLoader.load();
 
             // Injecter le contrôleur principal dans la toolbar
-            LogToolbarController toolbarController = toolbarLoader.getController();
+            LogNavbarController toolbarController = toolbarLoader.getController();
             toolbarController.setLogistiqueController(this);
 
             toolbarContainer.getChildren().add(toolbar);

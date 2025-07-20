@@ -13,7 +13,7 @@
 }
 
 .table-view .column-header {
-    -fx-size: 50px;
+    -fx-pref-height: 50px;
 }
 /*header du LogTable*/
 .table-view .column-header .label {
@@ -21,6 +21,7 @@
     -fx-font-size: 20px;
     -fx-font-weight: normal;
 }
+/*div flottant logitsique*/
 .DivFlottant{
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 25, 0.3, 0, 4);
 }

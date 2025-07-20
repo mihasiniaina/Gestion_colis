@@ -67,9 +67,9 @@ public class MainController implements Initializable {
     }
 
     private void updateButtonStyles(Button activeButton) {
-        navBarController.getBtnLogistique().setStyle("-fx-background-color: #313F49; -fx-border-radius: 120;");
-        navBarController.getBtnColis().setStyle("-fx-background-color: #313F49; -fx-border-radius: 120;");
-        navBarController.getBtnRevenu().setStyle("-fx-background-color: #313F49; -fx-border-radius: 120;");
+        navBarController.getBtnLogistique().setStyle("-fx-background-color: transparent; -fx-border-radius: 120;");
+        navBarController.getBtnColis().setStyle("-fx-background-color: transparent; -fx-border-radius: 120;");
+        navBarController.getBtnRevenu().setStyle("-fx-background-color: transparent; -fx-border-radius: 120;");
 
         activeButton.setStyle("-fx-background-color: #4A5B66; -fx-border-radius: 120;");
     }
