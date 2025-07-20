@@ -14,6 +14,8 @@ module org.example.projetjavafx {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires jakarta.mail;
+    requires openhtmltopdf.pdfbox;
+    requires openhtmltopdf.core;
 
     opens org.example.projetjavafx to javafx.fxml;
     exports org.example.projetjavafx;
