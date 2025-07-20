@@ -1,6 +1,8 @@
 package org.example.projetjavafx.Model;
 import  jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "voiture")
 public class Voiture {
@@ -10,6 +12,9 @@ public class Voiture {
 
     @Column(nullable = false)
     private String design;
+
+    @OneToMany(mappedBy = "voiture")
+    private List<Envoyer> envoyer;
 
     @ManyToOne
     @JoinColumn(name = "codeit", referencedColumnName = "codeit", nullable = false)

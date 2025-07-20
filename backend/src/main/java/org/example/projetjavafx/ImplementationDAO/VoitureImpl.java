@@ -2,7 +2,9 @@ package org.example.projetjavafx.ImplementationDAO;
 
 import jakarta.persistence.PersistenceException;
 import org.example.projetjavafx.DAO.VoitureDAO;
+import org.example.projetjavafx.Model.Envoyer;
 import org.example.projetjavafx.Model.Itineraire;
+import org.example.projetjavafx.Model.Recevoir;
 import org.example.projetjavafx.Model.Voiture;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,29 +19,10 @@ public class VoitureImpl implements VoitureDAO {
     public VoitureImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
-    @Override
-    public String newId() {
-        try(Session session = sessionFactory.openSession()){
-
-            String sql = "SELECT idvoit FROM voiture ORDER BY CAST(SUBSTRING(idvoit from 2) AS INTEGER) " +
-                    "DESC LIMIT 1 ";
-
-            try{
-                String dernierId = session.createNativeQuery(sql, String.class).getSingleResult();
-
-                int num = Integer.parseInt(dernierId.substring(1));
-
-                return "V" + ( num + 1 );
-            }catch (PersistenceException e ){
-                return "V1";
-            }
-        }
-    }
 
     @Override
-    public String ajouterVoiture(String design, String codeit) {
+    public String ajouterVoiture(String idvoit, String design, String codeit) {
 
-        String idvoit = newId();
         try(Session session = sessionFactory.openSession()){
 
             Transaction tx = session.beginTransaction();
@@ -103,6 +86,20 @@ public class VoitureImpl implements VoitureDAO {
 
             Transaction tx = session.beginTransaction();
             Voiture v = session.get(Voiture.class, idvoit);
+
+            List<Envoyer> envois = session.createQuery(
+                            "FROM Envoyer WHERE voiture = :v and arrived = false", Envoyer.class)
+                    .setParameter("v", v)
+                    .getResultList();
+
+            for (Envoyer e : envois) {
+                // Supprimer le recevoir lié s’il existe
+                Recevoir r = e.getRecevoir();
+                if (r != null) {
+                    session.remove(r);
+                }
+                session.remove(e); // supprimer l'envoi
+            }
 
             session.remove(v);
             tx.commit();

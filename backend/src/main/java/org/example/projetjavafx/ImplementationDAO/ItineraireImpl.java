@@ -2,7 +2,10 @@ package org.example.projetjavafx.ImplementationDAO;
 
 import jakarta.persistence.PersistenceException;
 import org.example.projetjavafx.DAO.ItineraireDAO;
+import org.example.projetjavafx.Model.Envoyer;
 import org.example.projetjavafx.Model.Itineraire;
+import org.example.projetjavafx.Model.Recevoir;
+import org.example.projetjavafx.Model.Voiture;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -122,17 +125,46 @@ public class ItineraireImpl implements ItineraireDAO {
 
     @Override
     public String supprimerItineraire(String codeit) {
+        Transaction tx =null;
         try(Session session = sessionFactory.openSession()){
 
-            Transaction tx = session.beginTransaction();
-            Itineraire i = session.get(Itineraire.class, codeit);
+            tx = session.beginTransaction();
 
-            session.remove(i);
+            Itineraire itineraire = session.get(Itineraire.class, codeit);
+
+            // Charger les voitures liées à cet itinéraire
+            List<Voiture> voitures = session.createQuery(
+                            "FROM Voiture WHERE itineraire = :it", Voiture.class)
+                    .setParameter("it", itineraire)
+                    .getResultList();
+
+            for (Voiture v : voitures) {
+
+                // Charger les envois liés à cette voiture
+                List<Envoyer> envois = session.createQuery(
+                                "FROM Envoyer WHERE voiture = :v and arrived = false", Envoyer.class)
+                        .setParameter("v", v)
+                        .getResultList();
+
+                for (Envoyer e : envois) {
+                    // Supprimer le recevoir lié s’il existe
+                    Recevoir r = e.getRecevoir();
+                    if (r != null) {
+                        session.remove(r);
+                    }
+                    session.remove(e); // supprimer l'envoi
+                }
+
+                session.remove(v); // supprimer la voiture
+            }
+
+            session.remove(itineraire); // enfin, supprimer l’itinéraire
+
             tx.commit();
-
-            return "Suppression réussie";
-
-        }catch (Exception e){
+            return "Supprésion réussie";
+        } catch (Exception ex) {
+            if (tx != null) tx.rollback();
+            ex.printStackTrace();
             return null;
         }
     }

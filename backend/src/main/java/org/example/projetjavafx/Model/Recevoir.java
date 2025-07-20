@@ -11,7 +11,7 @@ public class Recevoir {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idrecept;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idenvoi", referencedColumnName = "idenvoi", nullable = false)
     private Envoyer envoi;
 

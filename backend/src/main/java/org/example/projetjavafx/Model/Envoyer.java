@@ -11,9 +11,11 @@ public class Envoyer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idenvoi;
 
+    @OneToOne(mappedBy = "envoyer", cascade = CascadeType.REMOVE, optional = true)
+    private Recevoir recevoir;
 
     @ManyToOne
-    @JoinColumn(name = "idvoit")
+    @JoinColumn(name = "idvoit", referencedColumnName = "idvoit", nullable = false)
     private Voiture voiture;
 
     @Column(nullable = false)
@@ -36,6 +38,9 @@ public class Envoyer {
 
     @Column(nullable = false)
     private String contactRecepteur;
+
+    @Column(nullable = false)
+    private boolean arrived = false;
 
     public Envoyer(){}
 
@@ -83,5 +88,9 @@ public class Envoyer {
 
     public void setNomRecepteur(String nomRecepteur) {
         this.nomRecepteur = nomRecepteur;
+    }
+
+    public Recevoir getRecevoir() {
+        return recevoir;
     }
 }
