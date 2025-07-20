@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="712.0" prefWidth="1248.0" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Colis.EnvoyerController">
+   <children>
+      <TextField layoutX="448.0" layoutY="14.0" prefHeight="45.0" prefWidth="375.0" promptText="Rechercher un colis" style="-fx-background-radius: 20; -fx-border-color: #20323D; -fx-border-radius: 20;" />
+      <Button layoutX="759.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/icons8-loupe-50.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="84.0" prefHeight="59.0" prefWidth="1215.0" spacing="10.0">
+         <children>
+            <Label prefHeight="25.0" prefWidth="38.0" text="DU" textFill="#20323d">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <DatePicker prefHeight="40.0" prefWidth="198.0" style="-fx-background-radius: 20; -fx-border-color: #20323D;" />
+            <Label text="au" textFill="#20323d">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <DatePicker prefHeight="40.0" prefWidth="198.0" style="-fx-border-color: #20323D;" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Trier" textFill="#f8f3f3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Region prefHeight="59.0" prefWidth="178.0" />
+            <Button fx:id="AjoutForm" mnemonicParsing="false" onAction="#ShowAd" prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Ajouter" textFill="#f2f4f5">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="EditForm" layoutX="956.0" layoutY="11.0" mnemonicParsing="false" onAction="#ShowEdit" prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Modifier" textFill="#f2f4f5">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="DeleteForm" layoutX="1071.0" layoutY="11.0" mnemonicParsing="false" onAction="#ShowDelete" prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Supprimer" textFill="#f2f4f5">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <TableView layoutX="12.0" layoutY="163.0" prefHeight="536.0" prefWidth="1224.0" styleClass="DivFlottant">
+        <columns>
+            <TableColumn prefWidth="93.0" styleClass="HeaderTableView" text="IdEnvoie" />
+          <TableColumn prefWidth="142.0" styleClass="HeaderTableView" text="Envoyeur" />
+          <TableColumn prefWidth="159.0" styleClass="HeaderTableView" text="E-mail" />
+            <TableColumn prefWidth="139.0" styleClass="HeaderTableView" text="Colis" />
+            <TableColumn prefWidth="123.0" styleClass="HeaderTableView" text="Itinéraire" />
+            <TableColumn prefWidth="128.0" styleClass="HeaderTableView" text="Voiture" />
+            <TableColumn prefWidth="149.0" styleClass="HeaderTableView" text="Date" />
+            <TableColumn prefWidth="154.0" styleClass="HeaderTableView" text="Récéptionneur" />
+            <TableColumn prefWidth="136.0" styleClass="HeaderTableView" text="Contact" />
+        </columns>
+      </TableView>
+      <StackPane fx:id="FormView" layoutX="804.0" layoutY="61.0" prefHeight="618.0" prefWidth="431.0" style="-fx-background-color: White;" styleClass="DivFlottant" />
+   </children>
+</AnchorPane>

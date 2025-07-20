@@ -7,30 +7,30 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Logistique.LogNavbarController">
+<StackPane xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Colis.ColisNavbarController">
     <children>
         <ToolBar prefHeight="100.0" prefWidth="713.0" styleClass="FooterToolbar" stylesheets="@../../Css/Style.css">
             <items>
                 <Region prefHeight="90.0" prefWidth="221.0" />
 
-                <Button fx:id="ItineraireBtn" mnemonicParsing="false" onAction="#onShowItineraire" prefHeight="77.0" prefWidth="109.0" style="-fx-background-color: transparent;">
+                <Button fx:id="EnvoyerBtn" mnemonicParsing="false" onAction="#onShowEnvoyer" prefHeight="77.0" prefWidth="109.0" style="-fx-background-color: transparent;">
                     <graphic>
                         <VBox prefHeight="78.0" prefWidth="70.0" spacing="5.0">
                             <children>
                                 <ImageView fitHeight="48.0" fitWidth="565.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../Images/incons8-itineraire.png" />
+                                        <Image url="@../../Images/icons8-envoye-50.png" />
                                     </image>
                                     <VBox.margin>
                                         <Insets left="20.0" />
                                     </VBox.margin>
                                 </ImageView>
-                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="109.0" text="Itinéraire" textFill="WHITE">
+                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="109.0" text="Envoyer" textFill="WHITE">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
@@ -42,19 +42,19 @@
 
                 <Region prefHeight="90.0" prefWidth="52.0" />
 
-                <Button fx:id="VoitureBtn" mnemonicParsing="false" onAction="#onShowVoiture" prefHeight="77.0" prefWidth="109.0" style="-fx-background-color: transparent;">
+                <Button fx:id="RecevoirBtn" mnemonicParsing="false" onAction="#onShowRecevoir" prefHeight="77.0" prefWidth="109.0" style="-fx-background-color: transparent;">
                     <graphic>
                         <VBox prefHeight="78.0" prefWidth="70.0" spacing="5.0">
                             <children>
                                 <ImageView fitHeight="48.0" fitWidth="565.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../Images/icons8-autobus-50.png" />
+                                        <Image url="@../../Images/icons8-confirmation-de-lecture-50.png" />
                                     </image>
                                     <VBox.margin>
                                         <Insets left="20.0" />
                                     </VBox.margin>
                                 </ImageView>
-                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="109.0" text="Voiture" textFill="WHITE">
+                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="109.0" text="Recevoir" textFill="WHITE">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
@@ -67,8 +67,6 @@
         </ToolBar>
 
         <!-- Indicateur animé -->
-        <Rectangle fx:id="activeIndicator" fill="#ADA296" height="4.0" width="40.0"
-                   StackPane.alignment="BOTTOM_CENTER"
-                   translateX="-90.0" translateY="-5.0" />
+        <Rectangle fx:id="activeIndicator" fill="#ADA296" height="4.0" translateX="-90.0" translateY="-5.0" width="40.0" StackPane.alignment="BOTTOM_CENTER" />
     </children>
 </StackPane>

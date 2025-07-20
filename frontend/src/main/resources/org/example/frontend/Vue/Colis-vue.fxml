@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.frontend.controllers.Colis.ColisController"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane prefHeight="599.0" prefWidth="1094.0" stylesheets="@../Css/Style.css"
+            xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.frontend.controllers.Colis.ColisController">
 
-</AnchorPane>
+    <!-- Zone top pour créer un espace de 1000 pixels -->
+    <top>
+        <Region prefHeight="40.0" />
+    </top>
+
+    <!-- Zone centrale qui sera repoussée vers le bas -->
+    <center>
+        <BorderPane fx:id="AffichageColis">
+            <BorderPane.margin>
+                <Insets bottom="40"/>
+            </BorderPane.margin>
+        </BorderPane>
+    </center>
+
+    <!-- Toolbar en bas -->
+    <bottom>
+        <HBox fx:id="toolbarContainer" alignment="CENTER" prefHeight="100.0" prefWidth="849.0">
+            <BorderPane.margin>
+                <Insets bottom="40.0" />
+            </BorderPane.margin>
+            <!-- La toolbar sera chargée dynamiquement ici -->
+        </HBox>
+    </bottom>
+
+</BorderPane>

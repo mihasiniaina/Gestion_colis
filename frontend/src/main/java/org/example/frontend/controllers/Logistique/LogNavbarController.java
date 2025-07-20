@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class LogToolbarController {
+public class LogNavbarController {
 
     private LogistiqueController logistiqueController;
 
