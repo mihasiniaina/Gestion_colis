@@ -15,7 +15,9 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -166,6 +168,24 @@ public class EnvoyerImpl implements EnvoyerDAO {
 
         }catch (Exception e){
             System.err.println("Erreur : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Envoyer> trierColis(LocalDate debut, LocalDate fin) {
+        LocalDateTime deb = debut.atTime(LocalTime.MIDNIGHT);
+        LocalDateTime fn = fin.atTime(LocalTime.MIDNIGHT);
+
+        try(Session session = sessionFactory.openSession()){
+
+            Query<Envoyer> query = session.createQuery("FROM Envoyer WHERE date_envoi BETWEEN :deb AND :fn", Envoyer.class);
+            query.setParameter("deb", deb);
+            query.setParameter("fn", fn);
+
+            return query.list();
+
+        }catch (Exception e){
+            return null;
         }
     }
 }
