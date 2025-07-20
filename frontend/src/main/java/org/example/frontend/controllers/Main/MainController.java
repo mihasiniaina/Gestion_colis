@@ -51,7 +51,7 @@ public class MainController implements Initializable {
     }
 
     public void ShowRevenu() {
-        loadView("/org/example/frontend/Vue/Revenu-vue.fxml");
+        loadView("/org/example/frontend/Vue/RevenuComponent.fxml");
         updateButtonStyles(navBarController.getBtnRevenu());
     }
 
