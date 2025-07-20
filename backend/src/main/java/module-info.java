@@ -13,6 +13,7 @@ module org.example.projetjavafx {
     requires java.sql;
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
+    requires jakarta.mail;
 
     opens org.example.projetjavafx to javafx.fxml;
     exports org.example.projetjavafx;

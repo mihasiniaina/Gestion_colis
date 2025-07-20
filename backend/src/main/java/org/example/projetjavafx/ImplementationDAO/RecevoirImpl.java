@@ -3,7 +3,6 @@ package org.example.projetjavafx.ImplementationDAO;
 import org.example.projetjavafx.DAO.RecevoirDAO;
 import org.example.projetjavafx.Model.Envoyer;
 import org.example.projetjavafx.Model.Recevoir;
-import org.example.projetjavafx.Model.Voiture;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,12 +10,63 @@ import org.hibernate.query.Query;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Properties;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
 public class RecevoirImpl implements RecevoirDAO {
     private SessionFactory sessionFactory;
+    private final String exp = "fitahianarabeharison86@gmail.com";
+    private final String mdp = "chon sqvy twxx ipkn";
+    private final String sujet = "Réception de colis";
 
     public RecevoirImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    public void envoyerMail(int idenvoi) {
+
+        try(Session sessionBD = sessionFactory.openSession()){
+
+            Envoyer e = sessionBD.get(Envoyer.class, idenvoi);
+
+            String emailEnvoyeur = e.getEmailEnvoyeur();
+            String recepteur = e.getNomRecepteur();
+
+            String corps = "Votre colis a été reçu par : " + recepteur + ". \n Merci de votre confiance !";
+
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            jakarta.mail.Session session = jakarta.mail.Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(exp, mdp);
+                }
+            });
+            try {
+                // Création du message
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(exp));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailEnvoyeur));
+                message.setSubject(sujet);
+                message.setText(corps);
+
+                // Envoi
+                Transport.send(message);
+                System.out.println("E-mail envoyé avec succès !");
+            } catch (MessagingException ex) {
+                ex.printStackTrace();
+            }
+
+        }catch (Exception e){
+
+            System.err.println("Erreur lors de l'envoi : " + e.getMessage());
+
+        }
     }
 
     @Override
