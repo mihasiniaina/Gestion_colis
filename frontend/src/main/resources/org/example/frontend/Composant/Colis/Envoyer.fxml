@@ -32,19 +32,31 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <DatePicker prefHeight="40.0" prefWidth="198.0" style="-fx-background-radius: 20; -fx-border-color: #20323D;" />
+            <DatePicker fx:id="Date1" prefHeight="40.0" prefWidth="198.0" style="-fx-background-radius: 20; -fx-border-color: #20323D;" />
             <Label text="au" textFill="#20323d">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <DatePicker prefHeight="40.0" prefWidth="198.0" style="-fx-border-color: #20323D;" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Trier" textFill="#f8f3f3">
+            <DatePicker fx:id="Date2" prefHeight="40.0" prefWidth="198.0" style="-fx-border-color: #20323D;" />
+            <Button fx:id="TrierBtn" mnemonicParsing="false" onAction="#TrierTableView" prefHeight="40.0" prefWidth="78.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Trier" textFill="#f8f3f3">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Region prefHeight="59.0" prefWidth="178.0" />
+            <Button fx:id="ResetBtn" layoutX="509.0" layoutY="20.0" mnemonicParsing="false" onAction="#Reset" prefHeight="40.0" prefWidth="78.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" textFill="#f8f3f3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/icons8-rafraîchir-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Region prefHeight="59.0" prefWidth="88.0" />
             <Button fx:id="AjoutForm" mnemonicParsing="false" onAction="#ShowAd" prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Ajouter" textFill="#f2f4f5">
                <font>
                   <Font size="20.0" />
@@ -68,7 +80,7 @@
           <TableColumn fx:id="envoyeur" prefWidth="142.0" styleClass="HeaderTableView" text="Envoyeur" />
           <TableColumn fx:id="email" prefWidth="159.0" styleClass="HeaderTableView" text="E-mail" />
             <TableColumn fx:id="colis" prefWidth="139.0" styleClass="HeaderTableView" text="Colis" />
-            <TableColumn fx:id="itineraire" prefWidth="123.0" styleClass="HeaderTableView" text="Itinéraire" />
+            <TableColumn fx:id="Frais" prefWidth="123.0" styleClass="HeaderTableView" text="Itinéraire" />
             <TableColumn fx:id="voiture" prefWidth="128.0" styleClass="HeaderTableView" text="Voiture" />
             <TableColumn fx:id="date" prefWidth="149.0" styleClass="HeaderTableView" text="Date" />
             <TableColumn fx:id="recepteur" prefWidth="154.0" styleClass="HeaderTableView" text="Récéptionneur" />
