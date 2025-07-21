@@ -239,9 +239,4 @@ public class ItineraireController {
             ItTableView.setItems(FXCollections.observableArrayList(list));
         }
     }
-
-    @FXML
-    public void  AfficherTableView(){
-
-    }
 }

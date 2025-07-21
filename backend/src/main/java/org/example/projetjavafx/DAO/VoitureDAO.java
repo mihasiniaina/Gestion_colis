@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface VoitureDAO {
 
-    String ajouterVoiture(String idvoit, String design, String codeit);
+    Boolean ajouterVoiture(String idvoit, String design, String codeit);
     List<Voiture> listerVoiture();
     String modifierVoiture(String idvoit, String design, String codeit);
     String supprimerVoiture(String idvoit);

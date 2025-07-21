@@ -31,7 +31,7 @@ public class EnvoyerImpl implements EnvoyerDAO {
 
 
     @Override
-    public String ajouterEnvoi(String idvoit, String colis, String nomEnvoyeur, String emailEnvoyeur,
+    public int ajouterEnvoi(String idvoit, String colis, String nomEnvoyeur, String emailEnvoyeur,
                                LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur)
     {
         try(Session session = sessionFactory.openSession()){
@@ -44,15 +44,25 @@ public class EnvoyerImpl implements EnvoyerDAO {
             Envoyer e = new Envoyer(v, colis, nomEnvoyeur, emailEnvoyeur, date_envoi, frais, nomRecepteur,
                     contactRecepteur);
 
+
             session.persist(e);
             tx.commit();
 
-            return "Ajout réussi";
+            Query query = session.createQuery("FROM Envoyer WHERE colis = :colis AND idvoit = :idvoit AND date_envoi = :date_envoi AND nomEnvoyeur = :nomEnvoyeur", String.class);
+            query.setParameter("colis", colis);
+            query.setParameter("idvoit", idvoit);
+            query.setParameter("date_envoi", date_envoi);
+            query.setParameter("nomEnvoyeur", nomEnvoyeur);
+
+            int idenvoi = (int) query.getSingleResult();
+
+
+            return idenvoi;
 
         }catch (Exception e){
 
             System.err.println("Erreur lors de l'ajout : " + e.getMessage());
-            return null;
+            return 0;
 
         }
     }

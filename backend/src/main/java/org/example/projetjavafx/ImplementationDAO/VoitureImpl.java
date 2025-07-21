@@ -21,7 +21,7 @@ public class VoitureImpl implements VoitureDAO {
     }
 
     @Override
-    public String ajouterVoiture(String idvoit, String design, String codeit) {
+    public Boolean ajouterVoiture(String idvoit, String design, String codeit) {
 
         try(Session session = sessionFactory.openSession()){
 
@@ -34,12 +34,12 @@ public class VoitureImpl implements VoitureDAO {
             session.persist(v);
             tx.commit();
 
-            return "Ajout réussi";
+            return true;
 
         }catch (Exception e){
 
             System.err.println("Erreur lors de l'ajout : " + e.getMessage());
-            return null;
+            return false;
 
         }
     }

@@ -5,10 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
-
 import java.io.IOException;
 
+import  org.example.projetjavafx.DAO.EnvoyerDAO;
+import org.example.projetjavafx.ImplementationDAO.EnvoyerImpl;
+import  org.example.projetjavafx.util.HibernateUtil;
+
 public class EnvoyerController {
+
+    private EnvoyerDAO dao = new EnvoyerImpl(HibernateUtil.getSessionFactory());
+
     @FXML
     public StackPane FormView;
 
@@ -47,5 +53,7 @@ public class EnvoyerController {
             e.printStackTrace();
         }
     }
+
+    //logique métier
 
 }
