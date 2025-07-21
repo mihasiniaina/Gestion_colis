@@ -67,7 +67,7 @@ public class EnvoyeAddControler {
         LocalDateTime date = LocalDateTime.now();
 
         if(voiture.isEmpty() || Env.isEmpty() || Email.isEmpty() || Recep.isEmpty() || Contact.isEmpty() || Colis.isEmpty()){
-            WarningLabel.setText("veuillez remplir toutes les champs");
+            WarningLabel.setText("veuillez remplir tous les champs");
         }
         else{
            int response =  dao.ajouterEnvoi(voiture,Colis,Env,Email,date,Recep,Contact);

@@ -3,6 +3,7 @@ package org.example.projetjavafx.ImplementationDAO;
 import org.example.projetjavafx.DAO.RecevoirDAO;
 import org.example.projetjavafx.Model.Envoyer;
 import org.example.projetjavafx.Model.Recevoir;
+import org.example.projetjavafx.util.TableauRecevoir;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,8 +11,11 @@ import org.hibernate.query.Query;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import jakarta.mail.*;
@@ -108,16 +112,38 @@ public class RecevoirImpl implements RecevoirDAO {
     }
 
     @Override
-    public List<Recevoir> listerRecu() {
+    public List<TableauRecevoir> listerRecu() {
         try(Session session = sessionFactory.openSession()){
 
-            Query<Recevoir> query = session.createQuery("FROM Recevoir ", Recevoir.class);
+            Query<Envoyer> query = session.createQuery("FROM Envoyer ", Envoyer.class);
+            List<Envoyer> liste  =  query.list();
 
-            return query.list();
+            List<TableauRecevoir> tableauRecevoirList = new ArrayList<>();
+
+            for (Envoyer e : liste) {
+                TableauRecevoir tableauRecevoir = getTableauRecevoir(e);
+                tableauRecevoirList.add(tableauRecevoir);
+            }
+
+            return tableauRecevoirList;
 
         }catch (Exception e){
             return null;
         }
+    }
+
+    private static TableauRecevoir getTableauRecevoir(Envoyer e) {
+        LocalDateTime date_recept = (e.getRecevoir() != null) ? e.getRecevoir().getDate_recept() : null;
+
+        return new TableauRecevoir(
+                e.getIdenvoi(),
+                e.getDate_envoi(),
+                e.getColis(),
+                date_recept,
+                e.getNomRecepteur(),
+                e.getContactRecepteur(),
+                e.isArrived()
+        );
     }
 
     @Override
@@ -160,4 +186,54 @@ public class RecevoirImpl implements RecevoirDAO {
             return null;
         }
     }
+
+    @Override
+    public List<TableauRecevoir> trierColis(LocalDate debut, LocalDate fin) {
+        LocalDateTime deb = debut.atTime(LocalTime.MIDNIGHT);
+        LocalDateTime fn = fin.atTime(LocalTime.MAX);
+
+        try(Session session = sessionFactory.openSession()){
+
+            Query<Envoyer> query = session.createQuery("FROM Envoyer WHERE date_envoi BETWEEN :deb AND :fn", Envoyer.class);
+            query.setParameter("deb", deb);
+            query.setParameter("fn", fn);
+
+            List<Envoyer> listeEnvoyer  =  query.list();
+            List<TableauRecevoir> tableauRecevoirList = new ArrayList<>();
+
+            for (Envoyer e : listeEnvoyer){
+                TableauRecevoir tableauRecevoir = getTableauRecevoir(e);
+                tableauRecevoirList.add(tableauRecevoir);
+            }
+
+            return tableauRecevoirList;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public List<TableauRecevoir> chercherColis(int idenvoi, String colis) {
+        try(Session session = sessionFactory.openSession()){
+
+            Query<Envoyer> query = session.createQuery("FROM Envoyer e WHERE e.idenvoi = :idenvoi OR e.colis LIKE :colis", Envoyer.class);
+            query.setParameter("idenvoi", idenvoi);
+            query.setParameter("colis", "%"+colis+"%");
+
+            List<Envoyer> listeEnvoyer  =  query.list();
+            List<TableauRecevoir> tableauRecevoirList = new ArrayList<>();
+
+            for (Envoyer e : listeEnvoyer){
+                TableauRecevoir tableauRecevoir = getTableauRecevoir(e);
+                tableauRecevoirList.add(tableauRecevoir);
+            }
+
+            return tableauRecevoirList;
+
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 }
