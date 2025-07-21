@@ -29,7 +29,7 @@
     </rowConstraints>
 
     <children>
-        <Label alignment="CENTER" prefHeight="50.0" prefWidth="325.0" style="-fx-background-color: #20323D;" text="Ajouter une Itinéraire" textFill="#eee9e9" GridPane.halignment="CENTER">
+        <Label alignment="CENTER" prefHeight="50.0" prefWidth="325.0" style="-fx-background-color: #20323D;" text="Modifier un itinéraire" textFill="#eee9e9" GridPane.halignment="CENTER">
             <font>
                 <Font size="20.0" />
             </font>

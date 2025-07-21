@@ -15,4 +15,5 @@ public interface EnvoyerDAO {
     String supprimerEnvoi(int idenvoi);
     void genererPDF(int idenvoi);
     List<Envoyer> trierColis(LocalDate debut, LocalDate fin);
+    List<Envoyer> chercherColis (int idenvoi, String colis);
 }
