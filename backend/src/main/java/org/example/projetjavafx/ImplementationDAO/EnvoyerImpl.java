@@ -47,17 +47,8 @@ public class EnvoyerImpl implements EnvoyerDAO {
 
             session.persist(e);
             tx.commit();
-
-            Query query = session.createQuery("FROM Envoyer WHERE colis = :colis AND idvoit = :idvoit AND date_envoi = :date_envoi AND nomEnvoyeur = :nomEnvoyeur", String.class);
-            query.setParameter("colis", colis);
-            query.setParameter("idvoit", idvoit);
-            query.setParameter("date_envoi", date_envoi);
-            query.setParameter("nomEnvoyeur", nomEnvoyeur);
-
-            int idenvoi = (int) query.getSingleResult();
-
-
-            return idenvoi;
+            System.err.println(e.getIdenvoi());
+            return e.getIdenvoi();
 
         }catch (Exception e){
 
@@ -81,7 +72,7 @@ public class EnvoyerImpl implements EnvoyerDAO {
     }
 
     @Override
-    public String modifierEnvoi(int idenvoi, String colis, String nomEnvoyeur, String emailEnvoyeur,
+    public Boolean modifierEnvoi(int idenvoi, String colis, String nomEnvoyeur, String emailEnvoyeur,
                                 LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur)
     {
         try(Session session = sessionFactory.openSession()){
@@ -100,10 +91,10 @@ public class EnvoyerImpl implements EnvoyerDAO {
 
             tx.commit();
 
-            return "Modification réussie";
+            return true;
 
         }catch (Exception e){
-            return null;
+            return false;
         }
     }
 

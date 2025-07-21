@@ -11,21 +11,22 @@ import  org.example.projetjavafx.DAO.EnvoyerDAO;
 import org.example.projetjavafx.ImplementationDAO.EnvoyerImpl;
 import  org.example.projetjavafx.util.HibernateUtil;
 
-
 import java.time.LocalDateTime;
 
-public class EnvoyeAddControler {
+public class EnvoyerEdditContorller {
 
     private EnvoyerDAO dao = new EnvoyerImpl(HibernateUtil.getSessionFactory());
 
     @FXML
+    private TextField idenvoie;
+    @FXML
     private TextField Voiture ;
     @FXML
-    private TextField NomEnv;
+    private TextField Envoyeur;
     @FXML
     private TextField Email;
     @FXML
-    private TextField NomRecep;
+    private TextField Recepteur;
     @FXML
     private TextField Contact;
     @FXML TextField Colis;
@@ -36,11 +37,14 @@ public class EnvoyeAddControler {
     @FXML
     private Label WarningLabel;
 
+    public String getidenvoie(){
+        return idenvoie.getText();
+    }
     public String getColis(){
         return Colis.getText();
     }
     public String getEnvoyer(){
-        return NomEnv.getText();
+        return Envoyeur.getText();
     }
     public String getEmail(){
         return Email.getText();
@@ -49,36 +53,19 @@ public class EnvoyeAddControler {
         return Voiture.getText();
     }
     public String getRecep(){
-        return NomRecep.getText();
+        return Recepteur.getText();
     }
     public String getContact(){
         return Contact.getText();
     }
+    private StackPane formView;
 
-    public void AddEnvoie(ActionEvent event){
-        String voiture = getVo();
-        String Env = getEnvoyer();
-        String Email = getEmail();
-        String Recep = getRecep();
-        String Contact = getContact();
-        String Colis = getColis();
-        LocalDateTime date = LocalDateTime.now();
-
-        if(voiture.isEmpty() || Env.isEmpty() || Email.isEmpty() || Recep.isEmpty() || Contact.isEmpty() || Colis.isEmpty()){
-            WarningLabel.setText("veuillez remplir toutes les champs");
-        }
-        else{
-           int response =  dao.ajouterEnvoi(voiture,Colis,Env,Email,date,Recep,Contact);
-           if(response != 0){
-                reset();
-                dao.genererPDF(response);
-           }
-           else{
-
-           }
-        }
+    public void setFormView(StackPane formView) {
+        this.formView = formView;
     }
-    public void Annuler(ActionEvent event){
+
+
+    public void quit(ActionEvent event){
         reset();
         Node source = (Node) event.getSource(); // le bouton cliqué
         StackPane parent = (StackPane) source.getScene().lookup("#FormView");
@@ -87,13 +74,39 @@ public class EnvoyeAddControler {
         }
     }
     public void  reset(){
-        NomEnv.setText("");
+        Envoyeur.setText("");
         Voiture.setText("");
-        NomRecep.setText("");
+        Recepteur.setText("");
         Email.setText("");
         Contact.setText("");
         Colis.setText("");
     }
+
+    public void Modifier(ActionEvent event){
+
+        int id = Integer.parseInt(getidenvoie());
+        String votiure = getVo();
+        String Envoyeur = getEnvoyer();
+        String Email = getEmail();
+        String Recepteur = getRecep();
+        String Contact = getContact();
+        String Colis = getColis();
+        LocalDateTime date = LocalDateTime.now();
+
+        if(  votiure.isEmpty() || Envoyeur.isEmpty() || Email.isEmpty()|| Recepteur.isEmpty() || Contact.isEmpty()){
+            WarningLabel.setText("veuillze remplir toutes les champs");
+        }
+        else{
+            Boolean response = dao.modifierEnvoi(id,Colis,Envoyeur,Email,date,Recepteur,Contact);
+            if(response){
+                reset();
+            }else{
+
+            }
+        }
+    }
+
+
 
 
 }
