@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="EditFormIt" maxWidth="750.0" prefHeight="583.0" prefWidth="325.0" styleClass="DivFlottant" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="EditFormIt" maxWidth="750.0" prefHeight="583.0" prefWidth="325.0" styleClass="DivFlottant" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Logistique.EditFormController">
 
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="100" />
@@ -45,7 +45,7 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <TextField alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
+                <TextField fx:id="IdItineraireInput" alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
             </children>
             <opaqueInsets>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -62,7 +62,7 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <TextField alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
+                <TextField fx:id="VilleDepInput" alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
             </children>
             <opaqueInsets>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -79,7 +79,7 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <TextField alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
+                <TextField fx:id="VilleArInput" alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
             </children>
             <opaqueInsets>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -89,7 +89,7 @@
             </padding>
         </VBox>
 
-        <Label fx:id="WarningAddItinéraire" alignment="CENTER" prefHeight="58.0" prefWidth="284.0" text="bonjour" textFill="#f20707" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <Label fx:id="WarningEditItineraire" alignment="CENTER" prefHeight="58.0" prefWidth="284.0" textFill="#f20707" GridPane.halignment="CENTER" GridPane.rowIndex="5">
             <font>
                 <Font size="20.0" />
             </font>
@@ -102,7 +102,7 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Spinner prefHeight="43.0" prefWidth="315.0" />
+                <Spinner fx:id="FraisInput" prefHeight="43.0" prefWidth="315.0" />
             </children>
             <opaqueInsets>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -114,12 +114,12 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="6">
          <children>
       
-              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Annuler" textFill="#fcf9f9">
+              <Button fx:id="AnnulerBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Annuler" textFill="#fcf9f9">
                   <font>
                       <Font size="18.0" />
                   </font>
               </Button>
-            <Button alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Modiffier" textFill="#fcf9f9">
+            <Button fx:id="ValidBtn" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Modiffier" textFill="#fcf9f9">
                <font>
                   <Font size="18.0" />
                </font>

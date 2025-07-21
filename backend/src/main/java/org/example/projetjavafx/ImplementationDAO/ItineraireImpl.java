@@ -43,7 +43,7 @@ public class ItineraireImpl implements ItineraireDAO {
     public Boolean checkIt(String villedep, String villearr) {
         try(Session session = sessionFactory.openSession()){
 
-            String hql ="SELECT i.codeit from Itineraire i where villedep = :villedep and villearr = :villearr";
+            String hql ="SELECT i.codeit from Itineraire i where i.villedep = :villedep and i.villearr = :villearr";
             Query<String> query = session.createQuery(hql, String.class);
             query.setParameter("villedep", villedep);
             query.setParameter("villearr", villearr);
@@ -54,13 +54,14 @@ public class ItineraireImpl implements ItineraireDAO {
 
 
         }catch (Exception e){
-            return false;
+            e.printStackTrace(); // Ajoutez au moins ça pour debug
+            return false;  // Ne jamais retourner null
         }
     }
 
 
     @Override
-    public String ajouterItineraire(String villedep, String villearr, int frais){
+    public Boolean ajouterItineraire(String villedep, String villearr, int frais){
 
         Boolean check = checkIt(villedep, villearr);
 
@@ -76,16 +77,16 @@ public class ItineraireImpl implements ItineraireDAO {
                 session.persist(i);
                 tx.commit();
 
-                return "Ajout réussi";
+                return true;
 
             }catch (Exception e){
 
                 System.err.println("Erreur lors de l'ajout : " + e.getMessage());
-                return null;
+                return false;
 
             }
         }else{
-            return "L'itinéraire existe déjà";
+            return false;
         }
     }
 
@@ -103,7 +104,7 @@ public class ItineraireImpl implements ItineraireDAO {
     }
 
     @Override
-    public String modifierItineraire(String codeit, String villedep, String villearr, int frais) {
+    public Boolean modifierItineraire(String codeit, String villedep, String villearr, int frais) {
         try(Session session = sessionFactory.openSession()){
 
             Transaction tx = session.beginTransaction();
@@ -116,10 +117,10 @@ public class ItineraireImpl implements ItineraireDAO {
             session.merge(i);
             tx.commit();
 
-            return "Modification réussie";
+            return true;
 
         }catch (Exception e){
-            return null;
+            return false;
         }
     }
 

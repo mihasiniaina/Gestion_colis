@@ -8,9 +8,9 @@ public interface ItineraireDAO {
 
     String newId();
     Boolean checkIt(String villedep, String villearr);
-    String ajouterItineraire(String villedep, String villearr, int frais);
+    Boolean ajouterItineraire(String villedep, String villearr, int frais);
     List<Itineraire> listerItineraire();
-    String modifierItineraire(String codeit, String villedep, String villearr, int frais);
+    Boolean modifierItineraire(String codeit, String villedep, String villearr, int frais);
     String supprimerItineraire(String codeit);
 
 }

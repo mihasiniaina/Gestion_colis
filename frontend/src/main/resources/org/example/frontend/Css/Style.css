@@ -7,20 +7,38 @@
 }
 
 /*Logistique*/
-
-.HeaderTableView {
-    -fx-background-color: #20323D;
-}
-
+/*Gestion du table view*/
 .table-view .column-header {
     -fx-pref-height: 50px;
+    -fx-background-color: #20323D;
 }
-/*header du LogTable*/
 .table-view .column-header .label {
     -fx-text-fill: white;
     -fx-font-size: 20px;
     -fx-font-weight: normal;
 }
+.table-view .table-row-cell {
+    -fx-pref-height: 50px;
+    -fx-border-color: transparent transparent #B0BEC5 transparent;
+    -fx-border-width: 1px 0 1px 0;
+}
+
+.table-view .table-row-cell .table-cell {
+    -fx-text-fill: #20323D;
+    -fx-font-size: 20px;
+    -fx-alignment: center;
+    -fx-border-width: 0px;
+    -fx-background-color: transparent;
+}
+
+.EditBtn, .DeleteBtn{
+    -fx-background-color: #20323D;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-radius: 10px;
+
+}
+
 /*div flottant logitsique*/
 .DivFlottant{
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 25, 0.3, 0, 4);
