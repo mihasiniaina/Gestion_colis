@@ -37,8 +37,7 @@ public class VoAddFormController {
     public void  Warning(){
         WarningAddVoiture.setText("Veuillez remplir toutes les champs");
     }
-    public void Warning1(){
-        WarningAddVoiture.setText("Voiture déja existente");
-    }
+    public void Warning1(){WarningAddVoiture.setText("Erreur lors de l'ajout. Veuillez réessayer");}
+    public void resetAddWarning(){WarningAddVoiture.setText("");}
 
 }
