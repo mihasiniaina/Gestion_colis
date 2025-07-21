@@ -14,7 +14,10 @@
                 <TableColumn fx:id="DesignCo" prefWidth="197.0" styleClass="HeaderTableView" text="Design" />
                 <TableColumn fx:id="VilleDepCo" prefWidth="234.0" styleClass="HeaderTableView" text="Ville de départ" />
                 <TableColumn fx:id="VilleArCo" prefWidth="235.0" styleClass="HeaderTableView" text="Ville d'arrivée" />
+                <TableColumn fx:id="ColEdit" prefWidth="70.0" styleClass="HeaderTableView"/>
+                <TableColumn fx:id="ColDelete" prefWidth="70.0" styleClass="HeaderTableView"/>
             </columns>
+
         </TableView>
         <VBox fx:id="FormVoiture" alignment="CENTER" layoutX="877.0" layoutY="49.0" prefHeight="620.0" prefWidth="308.0" spacing="40.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="877.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="49.0">
 
