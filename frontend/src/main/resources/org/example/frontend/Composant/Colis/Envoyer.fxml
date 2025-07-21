@@ -62,17 +62,17 @@
             </Button>
          </children>
       </HBox>
-      <TableView layoutX="12.0" layoutY="163.0" prefHeight="536.0" prefWidth="1224.0" styleClass="DivFlottant">
+      <TableView fx:id="Table" layoutX="12.0" layoutY="163.0" prefHeight="536.0" prefWidth="1224.0" styleClass="DivFlottant">
         <columns>
-            <TableColumn prefWidth="93.0" styleClass="HeaderTableView" text="IdEnvoie" />
-          <TableColumn prefWidth="142.0" styleClass="HeaderTableView" text="Envoyeur" />
-          <TableColumn prefWidth="159.0" styleClass="HeaderTableView" text="E-mail" />
-            <TableColumn prefWidth="139.0" styleClass="HeaderTableView" text="Colis" />
-            <TableColumn prefWidth="123.0" styleClass="HeaderTableView" text="Itinéraire" />
-            <TableColumn prefWidth="128.0" styleClass="HeaderTableView" text="Voiture" />
-            <TableColumn prefWidth="149.0" styleClass="HeaderTableView" text="Date" />
-            <TableColumn prefWidth="154.0" styleClass="HeaderTableView" text="Récéptionneur" />
-            <TableColumn prefWidth="136.0" styleClass="HeaderTableView" text="Contact" />
+            <TableColumn fx:id="id" prefWidth="93.0" styleClass="HeaderTableView" text="IdEnvoie" />
+          <TableColumn fx:id="envoyeur" prefWidth="142.0" styleClass="HeaderTableView" text="Envoyeur" />
+          <TableColumn fx:id="email" prefWidth="159.0" styleClass="HeaderTableView" text="E-mail" />
+            <TableColumn fx:id="colis" prefWidth="139.0" styleClass="HeaderTableView" text="Colis" />
+            <TableColumn fx:id="itineraire" prefWidth="123.0" styleClass="HeaderTableView" text="Itinéraire" />
+            <TableColumn fx:id="voiture" prefWidth="128.0" styleClass="HeaderTableView" text="Voiture" />
+            <TableColumn fx:id="date" prefWidth="149.0" styleClass="HeaderTableView" text="Date" />
+            <TableColumn fx:id="recepteur" prefWidth="154.0" styleClass="HeaderTableView" text="Récéptionneur" />
+            <TableColumn fx:id="contact" prefWidth="136.0" styleClass="HeaderTableView" text="Contact" />
         </columns>
       </TableView>
       <StackPane fx:id="FormView" layoutX="804.0" layoutY="61.0" prefHeight="618.0" prefWidth="431.0" style="-fx-background-color: White;" styleClass="DivFlottant" />
