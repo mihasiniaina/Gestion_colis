@@ -192,16 +192,28 @@ public class EnvoyerImpl implements EnvoyerDAO {
 
     @Override
     public List<Envoyer> chercherColis(int idenvoi, String colis) {
-        try(Session session = sessionFactory.openSession()){
+        try (Session session = sessionFactory.openSession()) {
+            String hql;
 
-            Query<Envoyer> query = session.createQuery("FROM Envoyer e WHERE e.idenvoi = :idenvoi OR e.colis LIKE :colis", Envoyer.class);
-            query.setParameter("idenvoi", idenvoi);
-            query.setParameter("colis", "%"+colis+"%");
+            Query<Envoyer> query;
 
+            // Si un ID a été fourni
+            if (idenvoi != -1) {
+                hql = "FROM Envoyer e WHERE e.idenvoi = :idenvoi OR e.colis LIKE :colis";
+                query = session.createQuery(hql, Envoyer.class);
+                query.setParameter("idenvoi", idenvoi);
+            } else {
+                hql = "FROM Envoyer e WHERE e.colis LIKE :colis";
+                query = session.createQuery(hql, Envoyer.class);
+            }
+
+            query.setParameter("colis", "%" + colis + "%");
             return query.list();
 
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
+
 }
