@@ -16,8 +16,8 @@
 
 <AnchorPane prefHeight="712.0" prefWidth="1248.0" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Colis.EnvoyerController">
    <children>
-      <TextField layoutX="448.0" layoutY="14.0" prefHeight="45.0" prefWidth="375.0" promptText="Rechercher un colis" style="-fx-background-radius: 20; -fx-border-color: #20323D; -fx-border-radius: 20;" />
-      <Button layoutX="759.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+      <TextField fx:id="SearchBarre" layoutX="448.0" layoutY="14.0" prefHeight="45.0" prefWidth="375.0" promptText="Rechercher un colis" style="-fx-background-radius: 20; -fx-border-color: #20323D; -fx-border-radius: 20;" />
+      <Button fx:id="SearchBtn" layoutX="759.0" layoutY="14.0" mnemonicParsing="false" onAction="#Rechercher" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
