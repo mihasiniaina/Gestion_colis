@@ -110,6 +110,7 @@ public class ItineraireController {
    @FXML
     public void Refresh(ActionEvent event){
             AddformController.reset();
+            AddformController.resetWarning();
     }
 
     // === Bouton ajouter itinéraire ===

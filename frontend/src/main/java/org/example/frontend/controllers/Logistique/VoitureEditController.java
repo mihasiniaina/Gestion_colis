@@ -39,10 +39,14 @@ public class VoitureEditController {
     public void Warning() {
         WarningEditVoiture.setText("Veuillez remplir tous les champs");
     }
+    public void Warning1(){WarningEditVoiture.setText("Erreur lors de la modification. Veuillez réessayer");}
 
     public void WarningExist() {
         WarningEditVoiture.setText("Voiture déjà existante");
     }
+
+    public void resetEditWarning(){WarningEditVoiture.setText("");}
+
 
     public void RemplirForm(Voiture voiture) {
         MatriculeInput.setText(voiture.getIdvoit());

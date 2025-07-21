@@ -102,7 +102,7 @@ public class VoitureContoller {
             } else if (fxmlPath.contains("EditFormVo")) {
                 EditfromControler = loader.getController();
                 ValidBtn.setOnAction(this::validerModification);
-                AnnulerBtn.setOnAction(this::Clean);
+                AnnulerBtn.setOnAction(this::CloseEditForm);
             }
 
 
@@ -131,7 +131,7 @@ public class VoitureContoller {
                 // Optionnel : reset ou fermer le formulaire édition
                 EditfromControler.reset();
             } else {
-                EditfromControler.Warning();
+                EditfromControler.Warning1();
                 System.err.println("Erreur modification");
             }
         }
@@ -156,12 +156,13 @@ public class VoitureContoller {
         }
     }
 
-    public void EdditVoiture(ActionEvent event){
-
+    public void CloseEditForm(ActionEvent event){
+         ShowAdd();
     }
 
 
     public void Clean(ActionEvent event) {
+        VoAddcontroller.resetAddWarning();
         VoAddcontroller.reset();
     }
     private void addButtonToTable() {

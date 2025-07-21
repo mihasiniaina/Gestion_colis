@@ -52,6 +52,7 @@ public class EditFormController {
         WarningEditItineraire.setText("Itinéraire déja existente");
     }
 
+
     public void RemplirForm(Itineraire itineraire) {
         IdItineraireInput.setText(itineraire.getCodeit());
         VilleDepInput.setText(itineraire.getVilledep());

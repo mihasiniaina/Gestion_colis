@@ -119,7 +119,7 @@
                       <Font size="18.0" />
                   </font>
               </Button>
-            <Button fx:id="ValidBtn" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Modiffier" textFill="#fcf9f9">
+            <Button fx:id="ValidBtn" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Modifier" textFill="#fcf9f9">
                <font>
                   <Font size="18.0" />
                </font>
