@@ -1,6 +1,5 @@
 package org.example.projetjavafx.ImplementationDAO;
 
-import jakarta.persistence.PersistenceException;
 import org.example.projetjavafx.DAO.VoitureDAO;
 import org.example.projetjavafx.Model.Envoyer;
 import org.example.projetjavafx.Model.Itineraire;
@@ -58,7 +57,7 @@ public class VoitureImpl implements VoitureDAO {
     }
 
     @Override
-    public String modifierVoiture(String idvoit, String design, String codeit) {
+    public boolean modifierVoiture(String idvoit, String design, String codeit) {
         try(Session session = sessionFactory.openSession()){
 
             Transaction tx = session.beginTransaction();
@@ -73,10 +72,10 @@ public class VoitureImpl implements VoitureDAO {
 
             tx.commit();
 
-            return "Modification réussie";
+            return true;
 
         }catch (Exception e){
-            return null;
+            return false;
         }
     }
 

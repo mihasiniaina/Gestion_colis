@@ -148,6 +148,7 @@ public class VoitureContoller {
             boolean reponse = dao.ajouterVoiture(matricule, designation, itineraire);
             if (reponse) {
                 VoAddcontroller.reset();
+                chargerTableView();
             } else {
                 VoAddcontroller.Warning1();
                 System.err.println(itineraire);
