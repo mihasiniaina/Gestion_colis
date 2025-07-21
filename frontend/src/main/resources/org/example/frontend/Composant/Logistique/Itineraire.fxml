@@ -8,14 +8,14 @@
 <AnchorPane maxHeight="750.0" maxWidth="-Infinity" prefHeight="712.0" prefWidth="1197.0" style="-fx-background-color: #88A2AA;" styleClass="DivFlottant" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Logistique.ItineraireController">
 
    <children>
-      <TableView layoutY="-1.0" prefHeight="712.0" prefWidth="864.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
+      <TableView fx:id="ItTableView" layoutY="-1.0" prefHeight="712.0" prefWidth="864.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
          <columns>
-            <TableColumn prefWidth="160.0" styleClass="HeaderTableView" text="Code Itinéraire" />
-            <TableColumn prefWidth="200.0" styleClass="HeaderTableView" text="Ville de départ" />
-            <TableColumn prefWidth="200.0" styleClass="HeaderTableView" text="Ville d'arrivée" />
-            <TableColumn prefWidth="161.0" styleClass="HeaderTableView" text="Frais" />
-            <TableColumn prefWidth="70.0" styleClass="HeaderTableView" />
-            <TableColumn prefWidth="70.0" styleClass="HeaderTableView" />
+            <TableColumn fx:id="ColIT" prefWidth="160.0" text="Code Itinéraire" />
+            <TableColumn fx:id="ColDep" prefWidth="200.0" text="Ville de départ" />
+            <TableColumn fx:id="ColAr" prefWidth="200.0" text="Ville d'arrivée" />
+            <TableColumn fx:id="ColFrais" prefWidth="161.0" text="Frais" />
+            <TableColumn fx:id="ColEdit" prefWidth="70.0" />
+            <TableColumn fx:id="ColDelete" prefWidth="70.0" />
          </columns>
       </TableView>
       <VBox fx:id="FormItineraire" alignment="CENTER" layoutX="877.0" layoutY="49.0" prefHeight="620.0" prefWidth="308.0" spacing="40.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="877.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="49.0">

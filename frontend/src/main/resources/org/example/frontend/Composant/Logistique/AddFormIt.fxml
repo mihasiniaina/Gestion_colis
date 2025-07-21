@@ -7,11 +7,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="AddFormIt" maxWidth="325.0" prefHeight="583.0" prefWidth="325.0" styleClass="DivFlottant" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="AddFormIt" maxWidth="325.0" prefHeight="468.0" prefWidth="325.0" styleClass="DivFlottant" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Logistique.AddFormController">
 
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="100" />
@@ -20,7 +21,6 @@
     <rowConstraints>
         <RowConstraints maxHeight="136.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="136.0" minHeight="0.0" prefHeight="96.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="136.0" minHeight="0.0" prefHeight="96.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="150.0" minHeight="0.0" prefHeight="96.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="96.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="227.0" minHeight="6.0" prefHeight="36.0" valignment="CENTER" vgrow="SOMETIMES" />
@@ -28,7 +28,7 @@
     </rowConstraints>
 
     <children>
-        <Label alignment="CENTER" prefHeight="50.0" prefWidth="325.0" style="-fx-background-color: #20323D;" text="Ajouter une Itinéraire" textFill="#eee9e9" GridPane.halignment="CENTER">
+        <Label alignment="CENTER" prefHeight="94.0" prefWidth="325.0" style="-fx-background-color: #20323D;" text="Ajouter une Itinéraire" textFill="#eee9e9" GridPane.halignment="CENTER">
             <font>
                 <Font size="20.0" />
             </font>
@@ -37,23 +37,14 @@
             </GridPane.margin>
         </Label>
 
-        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Ajouter" textFill="#fcf9f9" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-            <font>
-                <Font size="18.0" />
-            </font>
-            <GridPane.margin>
-                <Insets left="150.0" />
-            </GridPane.margin>
-        </Button>
-
-        <VBox prefHeight="128.0" prefWidth="284.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <VBox prefHeight="116.0" prefWidth="284.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <children>
-                <Label alignment="CENTER" prefHeight="29.0" prefWidth="128.0" text="Identifiant It" textFill="#20323d">
+                <Label alignment="CENTER" prefHeight="29.0" prefWidth="147.0" text="Ville de départ" textFill="#20323d">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <TextField alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
+                <TextField fx:id="AddVilleDepartInput" alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
             </children>
             <opaqueInsets>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -65,29 +56,12 @@
 
         <VBox prefHeight="116.0" prefWidth="284.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <children>
-                <Label alignment="CENTER" prefHeight="29.0" prefWidth="147.0" text="Ville de départ" textFill="#20323d">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Label>
-                <TextField alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
-            </children>
-            <opaqueInsets>
-                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-            </opaqueInsets>
-            <padding>
-                <Insets left="10.0" right="10.0" />
-            </padding>
-        </VBox>
-
-        <VBox prefHeight="116.0" prefWidth="284.0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-            <children>
                 <Label alignment="CENTER" prefHeight="29.0" prefWidth="128.0" text="Ville d'arrivé" textFill="#20323d">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <TextField alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
+                <TextField fx:id="AddVilleArriveInput" alignment="CENTER" prefHeight="43.0" prefWidth="162.0" />
             </children>
             <opaqueInsets>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -97,20 +71,20 @@
             </padding>
         </VBox>
 
-        <Label fx:id="WarningAddItinéraire" alignment="CENTER" prefHeight="58.0" prefWidth="284.0" text="bonjour" textFill="#f20707" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <Label fx:id="WarningAddItineraire" alignment="CENTER" prefHeight="58.0" prefWidth="284.0" textFill="#f20707" GridPane.halignment="CENTER" GridPane.rowIndex="4">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
 
-        <VBox layoutX="10.0" layoutY="192.0" prefHeight="87.0" prefWidth="284.0" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+        <VBox layoutX="10.0" layoutY="192.0" prefHeight="87.0" prefWidth="284.0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
             <children>
                 <Label alignment="CENTER" prefHeight="29.0" prefWidth="48.0" text="Frais" textFill="#20323d">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Spinner prefHeight="43.0" prefWidth="348.0" />
+                <Spinner fx:id="AddFraisInput" prefHeight="43.0" prefWidth="348.0" />
             </children>
             <opaqueInsets>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
@@ -119,5 +93,20 @@
                 <Insets left="10.0" right="10.0" />
             </padding>
         </VBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" GridPane.rowIndex="5">
+         <children>
+            <Button fx:id="AnnulerBtn" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Annuler" textFill="#fcf9f9">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+      
+              <Button fx:id="ValidAddBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #20323D;" text="Ajouter" textFill="#fcf9f9">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+              </Button>
+         </children>
+      </HBox>
     </children>
 </GridPane>
