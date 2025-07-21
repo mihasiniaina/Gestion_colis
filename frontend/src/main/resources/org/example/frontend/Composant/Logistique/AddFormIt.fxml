@@ -28,7 +28,7 @@
     </rowConstraints>
 
     <children>
-        <Label alignment="CENTER" prefHeight="94.0" prefWidth="325.0" style="-fx-background-color: #20323D;" text="Ajouter une Itinéraire" textFill="#eee9e9" GridPane.halignment="CENTER">
+        <Label alignment="CENTER" prefHeight="94.0" prefWidth="325.0" style="-fx-background-color: #20323D;" text="Ajouter un itinéraire" textFill="#eee9e9" GridPane.halignment="CENTER">
             <font>
                 <Font size="20.0" />
             </font>
@@ -56,7 +56,7 @@
 
         <VBox prefHeight="116.0" prefWidth="284.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
             <children>
-                <Label alignment="CENTER" prefHeight="29.0" prefWidth="128.0" text="Ville d'arrivé" textFill="#20323d">
+                <Label alignment="CENTER" prefHeight="29.0" prefWidth="128.0" text="Ville d'arrivée" textFill="#20323d">
                     <font>
                         <Font size="20.0" />
                     </font>
