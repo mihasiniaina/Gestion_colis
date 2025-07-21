@@ -22,7 +22,7 @@ public class AddFormController {
 
     @FXML
     public void initialize() {
-        AddFraisInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1000));
+        AddFraisInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1000, Integer.MAX_VALUE, 1000));
     }
 
     public String getVilleDepart() {
