@@ -107,6 +107,16 @@ public class ItineraireImpl implements ItineraireDAO {
     public Boolean modifierItineraire(String codeit, String villedep, String villearr, int frais) {
         try(Session session = sessionFactory.openSession()){
 
+            String hql ="SELECT i.codeit from Itineraire i where i.villedep = :villedep and i.villearr = :villearr and i.codeit != :codeit";
+            Query<String> query = session.createQuery(hql, String.class);
+            query.setParameter("villedep", villedep);
+            query.setParameter("villearr", villearr);
+            query.setParameter("codeit", codeit);
+
+            List<String> res = query.getResultList();
+            Boolean notFindDouble = res.isEmpty();
+
+        if (notFindDouble){
             Transaction tx = session.beginTransaction();
 
             Itineraire i = session.get(Itineraire.class, codeit);
@@ -118,6 +128,9 @@ public class ItineraireImpl implements ItineraireDAO {
             tx.commit();
 
             return true;
+        }else {
+            return false;
+        }
 
         }catch (Exception e){
             return false;
