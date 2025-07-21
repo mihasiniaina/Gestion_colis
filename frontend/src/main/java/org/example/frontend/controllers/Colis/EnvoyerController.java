@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 
@@ -50,9 +51,10 @@ public class EnvoyerController {
     private DatePicker Date1;
     @FXML
     private  DatePicker Date2;
-
     @FXML
     public StackPane FormView;
+    @FXML
+    private TextField SearchBarre;
 
 
     @FXML
@@ -136,5 +138,32 @@ public class EnvoyerController {
 
     public void Reset(){
         chargerTableView();
+        Date1.setValue(null);
+        Date2.setValue(null);
     }
+
+    public void Rechercher(ActionEvent event) {
+        if (SearchBarre.getText().isEmpty()) {
+            chargerTableView();
+        } else {
+            String input = SearchBarre.getText();
+            List<Envoyer> list;
+
+            try {
+                int id = Integer.parseInt(input);
+                list = dao.chercherColis(id, input);
+            } catch (NumberFormatException e) {
+                list = dao.chercherColis(-1, input);
+            }
+
+            // S'assurer que list ne soit jamais null
+            if (list == null) {
+                list = java.util.Collections.emptyList();
+            }
+
+            Table.setItems(FXCollections.observableArrayList(list));
+        }
+    }
+
+
 }
