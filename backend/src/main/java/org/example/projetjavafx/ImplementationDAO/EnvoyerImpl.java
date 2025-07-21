@@ -189,4 +189,19 @@ public class EnvoyerImpl implements EnvoyerDAO {
             return null;
         }
     }
+
+    @Override
+    public List<Envoyer> chercherColis(int idenvoi, String colis) {
+        try(Session session = sessionFactory.openSession()){
+
+            Query<Envoyer> query = session.createQuery("FROM Envoyer e WHERE e.idenvoi LIKE :idenvoi OR e.colis LIKE :colis", Envoyer.class);
+            query.setParameter("idenvoi", idenvoi);
+            query.setParameter("colis", colis);
+
+            return query.list();
+
+        }catch (Exception e){
+            return null;
+        }
+    }
 }

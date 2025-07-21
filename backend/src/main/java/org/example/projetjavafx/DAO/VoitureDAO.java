@@ -8,7 +8,7 @@ public interface VoitureDAO {
 
     Boolean ajouterVoiture(String idvoit, String design, String codeit);
     List<Voiture> listerVoiture();
-    String modifierVoiture(String idvoit, String design, String codeit);
+    boolean modifierVoiture(String idvoit, String design, String codeit);
     String supprimerVoiture(String idvoit);
 
 
