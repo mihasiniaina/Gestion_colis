@@ -36,6 +36,8 @@ public class EnvoyeAddControler {
     @FXML
     private Label WarningLabel;
 
+    private EnvoyerController mainController;
+
     public String getColis(){
         return Colis.getText();
     }
@@ -93,6 +95,9 @@ public class EnvoyeAddControler {
         Email.setText("");
         Contact.setText("");
         Colis.setText("");
+    }
+    public void setMainController(EnvoyerController mainController) {
+        this.mainController = mainController;
     }
 
 

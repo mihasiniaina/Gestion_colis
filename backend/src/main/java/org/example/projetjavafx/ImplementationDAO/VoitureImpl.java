@@ -58,7 +58,7 @@ public class VoitureImpl implements VoitureDAO {
     }
 
     @Override
-    public String modifierVoiture(String idvoit, String design, String codeit) {
+    public Boolean modifierVoiture(String idvoit, String design, String codeit) {
         try(Session session = sessionFactory.openSession()){
 
             Transaction tx = session.beginTransaction();
@@ -73,10 +73,10 @@ public class VoitureImpl implements VoitureDAO {
 
             tx.commit();
 
-            return "Modification réussie";
+            return true;
 
         }catch (Exception e){
-            return null;
+            return false;
         }
     }
 

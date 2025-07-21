@@ -37,6 +37,8 @@ public class EnvoyerEdditContorller {
     @FXML
     private Label WarningLabel;
 
+    private EnvoyerController mainController;
+
     public String getidenvoie(){
         return idenvoie.getText();
     }
@@ -106,7 +108,8 @@ public class EnvoyerEdditContorller {
         }
     }
 
-
-
+    public void setMainController(EnvoyerController mainController) {
+        this.mainController = mainController;
+    }
 
 }
