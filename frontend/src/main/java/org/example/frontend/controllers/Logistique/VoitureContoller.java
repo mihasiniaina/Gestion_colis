@@ -5,14 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +26,6 @@ import org.example.projetjavafx.Model.Voiture;
 public class VoitureContoller {
 
     private VoitureDAO dao = new VoitureImpl(HibernateUtil.getSessionFactory());
-
 
     @FXML
     public VBox FormVoiture;
@@ -49,6 +48,57 @@ public class VoitureContoller {
     private VoAddFormController VoAddcontroller;
     private VoitureEditController EditfromControler;
 
+    // Méthode pour styliser les boîtes de dialogue
+    private void styleAlert(Alert alert) {
+        // Appliquer le CSS d'abord pour obtenir les bonnes dimensions
+        String css = """
+            .dialog-pane {
+                -fx-background-color: #f0f0f0;
+                -fx-pref-width: 400;
+                -fx-pref-height: 200;
+            }
+            .dialog-pane .header-panel {
+                -fx-background-color: #20323D;
+            }
+            .dialog-pane .header-panel .label {
+                -fx-text-fill: white;
+                -fx-font-weight: bold;
+                -fx-font-size: 18px;
+            }
+            .dialog-pane .content.label {
+                -fx-font-size: 16px;
+                -fx-text-fill: #333333;
+            }
+            .dialog-pane .button-bar .button {
+                -fx-background-color: #20323D;
+                -fx-text-fill: white;
+                -fx-font-weight: bold;
+                -fx-font-size: 14px;
+                -fx-pref-width: 100;
+                -fx-pref-height: 35;
+            }
+            .dialog-pane .button-bar .button:hover {
+                -fx-background-color: #2c4450;
+            }
+            """;
+
+        alert.getDialogPane().getStylesheets().add("data:text/css;base64," +
+                java.util.Base64.getEncoder().encodeToString(css.getBytes()));
+
+        // Obtenir la fenêtre de l'alerte après l'application du CSS
+        alert.getDialogPane().applyCss();
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        // Obtenir les dimensions de l'écran
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+        // Centrer horizontalement et positionner légèrement vers le bas
+        double dialogWidth = 400; // Largeur définie dans le CSS
+        double dialogHeight = 200; // Hauteur définie dans le CSS
+
+        alertStage.setX((screenBounds.getWidth() - dialogWidth) / 2); // Parfaitement centré
+        alertStage.setY((screenBounds.getHeight() - dialogHeight) / 2 + 100); // Centré + 100px vers le bas
+    }
 
     @FXML
     public void initialize() {
@@ -105,7 +155,6 @@ public class VoitureContoller {
                 AnnulerBtn.setOnAction(this::CloseEditForm);
             }
 
-
             FormVoiture.getChildren().clear();
             FormVoiture.getChildren().add(formView);
         } catch (IOException e) {
@@ -122,18 +171,29 @@ public class VoitureContoller {
         if (matricule.isEmpty() || designation.isEmpty() || itineraire.isEmpty()) {
             EditfromControler.Warning();
         } else {
-            // Appeler DAO pour modifier la voiture
-            boolean reponse = dao.modifierVoiture(matricule, designation, itineraire);
-            if (reponse) {
-                System.out.println("Modification réussie");
-                // Recharger la table pour afficher les modifications
-                chargerTableView();
-                // Optionnel : reset ou fermer le formulaire édition
-                EditfromControler.reset();
-            } else {
-                EditfromControler.Warning1();
-                System.err.println("Erreur modification");
-            }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Modifier la voiture ?");
+            alert.setContentText("Voulez-vous enregistrer les modifications ?");
+
+            // Appliquer le style personnalisé
+            styleAlert(alert);
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == javafx.scene.control.ButtonType.OK) {
+                    // Appeler DAO pour modifier la voiture
+                    boolean reponse = dao.modifierVoiture(matricule, designation, itineraire);
+                    if (reponse) {
+                        System.out.println("Modification réussie");
+                        // Recharger la table pour afficher les modifications
+                        chargerTableView();
+                        CloseEditForm(event);
+                    } else {
+                        EditfromControler.Warning1();
+                        System.err.println("Erreur modification");
+                    }
+                }
+            });
         }
     }
 
@@ -145,26 +205,38 @@ public class VoitureContoller {
         if (matricule.isEmpty() || designation.isEmpty() || itineraire.isEmpty()) {
             VoAddcontroller.Warning();
         } else {
-            boolean reponse = dao.ajouterVoiture(matricule, designation, itineraire);
-            if (reponse) {
-                VoAddcontroller.reset();
-                chargerTableView();
-            } else {
-                VoAddcontroller.Warning1();
-                System.err.println(itineraire);
-            }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Ajouter une voiture ?");
+            alert.setContentText("Voulez-vous vraiment ajouter cette voiture ?");
+
+            // Appliquer le style personnalisé
+            styleAlert(alert);
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == javafx.scene.control.ButtonType.OK) {
+                    boolean reponse = dao.ajouterVoiture(matricule, designation, itineraire);
+                    if (reponse) {
+                        VoAddcontroller.reset();
+                        chargerTableView();
+                    } else {
+                        VoAddcontroller.Warning1();
+                        System.err.println(itineraire);
+                    }
+                }
+            });
         }
     }
 
     public void CloseEditForm(ActionEvent event){
-         ShowAdd();
+        ShowAdd();
     }
-
 
     public void Clean(ActionEvent event) {
         VoAddcontroller.resetAddWarning();
         VoAddcontroller.reset();
     }
+
     private void addButtonToTable() {
         // Colonne Edit
         ColEdit.setCellFactory(col -> new TableCell<Voiture, Void>() {
@@ -179,7 +251,7 @@ public class VoitureContoller {
                 editBtn.setGraphic(editIcon);
                 editBtn.getStyleClass().add("EditBtn");
                 editBtn.setOnAction(e -> {
-                   Voiture voiture = getTableView().getItems().get(getIndex());
+                    Voiture voiture = getTableView().getItems().get(getIndex());
                     System.out.println("Edit clicked: " + voiture.getIdvoit());
                     // Ouvre le formulaire d'édition, charge l'objet sélectionné dedans
                     ShowEdit();
@@ -201,7 +273,6 @@ public class VoitureContoller {
             private final Button deleteBtn = new Button();
 
             {
-
                 ImageView deleteIcon = new ImageView(new Image(
                         getClass().getResource("/org/example/frontend/Images/icons8-poubelle-64.png").toExternalForm()
                 ));
@@ -213,15 +284,27 @@ public class VoitureContoller {
                     Voiture voiture= getTableView().getItems().get(getIndex());
                     System.out.println("Delete clicked: " + voiture.getIdvoit());
 
-                    // Appel DAO pour supprimer
-                    String result = dao.supprimerVoiture(voiture.getIdvoit());
-                    if (result != null) {
-                        System.out.println("Suppression réussie");
-                        // Rafraîchir la table après suppression
-                        chargerTableView();
-                    } else {
-                        System.err.println("Erreur suppression");
-                    }
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Suppression");
+                    alert.setContentText("Voulez-vous vraiment supprimer cette voiture ?");
+
+                    // Appliquer le style personnalisé
+                    styleAlert(alert);
+
+                    alert.showAndWait().ifPresent(response -> {
+                        if (response == javafx.scene.control.ButtonType.OK) {
+                            // Appel DAO pour supprimer
+                            String result = dao.supprimerVoiture(voiture.getIdvoit());
+                            if (result != null) {
+                                System.out.println("Suppression réussie");
+                                // Rafraîchir la table après suppression
+                                chargerTableView();
+                            } else {
+                                System.err.println("Erreur suppression");
+                            }
+                        }
+                    });
                 });
             }
 
@@ -239,5 +322,4 @@ public class VoitureContoller {
             VoTable.setItems(FXCollections.observableArrayList(list));
         }
     }
-
 }

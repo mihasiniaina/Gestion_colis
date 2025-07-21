@@ -5,17 +5,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import java.io.IOException;
 import java.util.List;
-
-import javafx.scene.control.TableCell;
 
 import org.example.projetjavafx.Model.Itineraire;
 import org.example.projetjavafx.ImplementationDAO.ItineraireImpl;
@@ -49,6 +48,57 @@ public class ItineraireController {
 
     private EditFormController EditfromControler;
 
+    // Méthode pour styliser les boîtes de dialogue
+    private void styleAlert(Alert alert) {
+        // Appliquer le CSS d'abord pour obtenir les bonnes dimensions
+        String css = """
+            .dialog-pane {
+                -fx-background-color: #f0f0f0;
+                -fx-pref-width: 400;
+                -fx-pref-height: 200;
+            }
+            .dialog-pane .header-panel {
+                -fx-background-color: #20323D;
+            }
+            .dialog-pane .header-panel .label {
+                -fx-text-fill: white;
+                -fx-font-weight: bold;
+                -fx-font-size: 18px;
+            }
+            .dialog-pane .content.label {
+                -fx-font-size: 16px;
+                -fx-text-fill: #333333;
+            }
+            .dialog-pane .button-bar .button {
+                -fx-background-color: #20323D;
+                -fx-text-fill: white;
+                -fx-font-weight: bold;
+                -fx-font-size: 14px;
+                -fx-pref-width: 100;
+                -fx-pref-height: 35;
+            }
+            .dialog-pane .button-bar .button:hover {
+                -fx-background-color: #2c4450;
+            }
+            """;
+
+        alert.getDialogPane().getStylesheets().add("data:text/css;base64," +
+                java.util.Base64.getEncoder().encodeToString(css.getBytes()));
+
+        // Obtenir la fenêtre de l'alerte après l'application du CSS
+        alert.getDialogPane().applyCss();
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        // Obtenir les dimensions de l'écran
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+        // Centrer horizontalement et positionner légèrement vers le bas
+        double dialogWidth = 400; // Largeur définie dans le CSS
+        double dialogHeight = 200; // Hauteur définie dans le CSS
+
+        alertStage.setX((screenBounds.getWidth() - dialogWidth) / 2); // Parfaitement centré
+        alertStage.setY((screenBounds.getHeight() - dialogHeight) / 2 + 100); // Centré + 100px vers le bas
+    }
 
     @FXML
     public void initialize() {
@@ -107,55 +157,76 @@ public class ItineraireController {
         }
     }
 
-   @FXML
+    @FXML
     public void Refresh(ActionEvent event){
-            AddformController.reset();
-            AddformController.resetWarning();
+        AddformController.reset();
+        AddformController.resetWarning();
     }
 
     // === Bouton ajouter itinéraire ===
     @FXML
-    public void AddItinéraire(ActionEvent event){
+    public void AddItinéraire(ActionEvent event) {
         String villeDepart = AddformController.getVilleDepart();
         String villeArrive = AddformController.getVilleArrive();
         Integer frais = AddformController.getFrais();
 
-        if(villeDepart == "" || villeArrive == ""){
+        if (villeDepart.isEmpty() || villeArrive.isEmpty()) {
             AddformController.Warning();
-        }
-        else{
-            boolean response =dao.ajouterItineraire(villeDepart, villeArrive, frais);
-            if(response){
-                addButtonToTable();
-                chargerTableView();
-                AddformController.Clean();
-            }
-            else {
-                AddformController.Warning1();
-            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Ajouter un itinéraire ?");
+            alert.setContentText("Voulez-vous vraiment ajouter cet itinéraire ?");
+
+            // Appliquer le style personnalisé
+            styleAlert(alert);
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == javafx.scene.control.ButtonType.OK) {
+                    boolean success = dao.ajouterItineraire(villeDepart, villeArrive, frais);
+                    if (success) {
+                        addButtonToTable();
+                        chargerTableView();
+                        AddformController.Clean();
+                    } else {
+                        AddformController.Warning1();
+                    }
+                }
+            });
         }
     }
 
-    // === Édition d’itinéraire ===
+    // === Édition d'itinéraire ===
     @FXML
-    public void EditItinéraire(ActionEvent event){
+    public void EditItinéraire(ActionEvent event) {
         String Id = EditfromControler.getIdIT();
         String VilleDepart = EditfromControler.getVilleDepart();
         String VilleArrive = EditfromControler.getVilleArrive();
         Integer Frais = EditfromControler.getFrais();
 
-        if(Id == "" || VilleArrive == "" || VilleDepart == ""){
+        if (Id.isEmpty() || VilleArrive.isEmpty() || VilleDepart.isEmpty()) {
             EditfromControler.Warning();
-        }
-        else{
-            boolean response = dao.modifierItineraire(Id,VilleDepart,VilleArrive,Frais);
-            if(response){
-                CloseEditForm(event);
-                addButtonToTable();
-                chargerTableView();
-            }else{
-                EditfromControler.Warning1();
-            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Modifier l'itinéraire ?");
+            alert.setContentText("Voulez-vous enregistrer les modifications ?");
+
+            // Appliquer le style personnalisé
+            styleAlert(alert);
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == javafx.scene.control.ButtonType.OK) {
+                    boolean success = dao.modifierItineraire(Id, VilleDepart, VilleArrive, Frais);
+                    if (success) {
+                        CloseEditForm(event);
+                        addButtonToTable();
+                        chargerTableView();
+                    } else {
+                        EditfromControler.Warning1();
+                    }
+                }
+            });
         }
     }
 
@@ -212,17 +283,26 @@ public class ItineraireController {
                 deleteBtn.getStyleClass().add("DeleteBtn");
                 deleteBtn.setOnAction(e -> {
                     Itineraire itineraire = getTableView().getItems().get(getIndex());
-                    System.out.println("Delete clicked: " + itineraire.getCodeit());
 
-                    // Appel DAO pour supprimer
-                    String result = dao.supprimerItineraire(itineraire.getCodeit());
-                    if (result != null) {
-                        System.out.println("Suppression réussie");
-                        // Rafraîchir la table après suppression
-                        chargerTableView();
-                    } else {
-                        System.err.println("Erreur suppression");
-                    }
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Suppression");
+                    alert.setContentText("Voulez-vous vraiment supprimer cet itinéraire ?");
+
+                    // Appliquer le style personnalisé
+                    styleAlert(alert);
+
+                    alert.showAndWait().ifPresent(response -> {
+                        if (response == javafx.scene.control.ButtonType.OK) {
+                            String result = dao.supprimerItineraire(itineraire.getCodeit());
+                            if (result != null) {
+                                System.out.println("Suppression réussie");
+                                chargerTableView();
+                            } else {
+                                System.err.println("Erreur suppression");
+                            }
+                        }
+                    });
                 });
             }
 
