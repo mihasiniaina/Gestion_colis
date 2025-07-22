@@ -6,22 +6,22 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.frontend.controllers.Revenu.RevenuComponentController"
       spacing="15"
-      prefWidth="800" prefHeight="600"
+      prefWidth="800" prefHeight="900"
+      minHeight="600" maxHeight="900"
       style="-fx-background-color: #f4f6f9;">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <!-- Cartes - hauteur fixe environ 35% de la VBox -->
-    <HBox spacing="20" alignment="CENTER" VBox.vgrow="NEVER" prefHeight="210">
+    <!-- Cartes - hauteur fixe 210px (≈35% de 600) -->
+    <HBox spacing="20" alignment="CENTER" VBox.vgrow="NEVER" minHeight="210" prefHeight="210" maxHeight="210">
         <VBox alignment="CENTER"
               spacing="10"
               style="-fx-background-color: white; -fx-background-radius: 12;"
@@ -68,8 +68,11 @@
         </VBox>
     </HBox>
 
-    <!-- Graphique - occupe tout l'espace restant (environ 65%) -->
-    <VBox spacing="10" alignment="CENTER" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15;">
+    <!-- Graphique - hauteur fixe 390px (≈65% de 600) -->
+    <VBox spacing="10" alignment="CENTER" VBox.vgrow="ALWAYS"
+          style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15;"
+          minHeight="550" prefHeight="550" maxHeight="550">
+
         <Label text="Revenus des 6 derniers mois"
                style="-fx-font-size: 18px; -fx-text-fill: #333;"/>
         <BarChart fx:id="barChart" VBox.vgrow="ALWAYS" legendVisible="false" animated="true"
