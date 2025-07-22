@@ -94,16 +94,27 @@ public class EnvoyeAddControler {
         alertStage.setY((screenBounds.getHeight() - dialogHeight) / 2 + 100);
     }
 
+    public boolean isValidEmail(String email) {
+        return email != null && email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$");
+    }
+
     public void AddEnvoie(ActionEvent event) {
         String voiture = getVo();
         String Env = getEnvoyer();
-        String Email = getEmail();
+        String emailTxt = getEmail();
+        if (!isValidEmail(emailTxt)) {
+            Email.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+            System.out.println("emailTxt invalide !");
+            return;
+        }
+        Email.setStyle("");
+
         String Recep = getRecep();
         String Contact = getContact();
         String Colis = getColis();
         LocalDateTime date = LocalDateTime.now();
 
-        if (voiture.isEmpty() || Env.isEmpty() || Email.isEmpty() || Recep.isEmpty() || Contact.isEmpty() || Colis.isEmpty()) {
+        if (voiture.isEmpty() || Env.isEmpty() || emailTxt.isEmpty() || Recep.isEmpty() || Contact.isEmpty() || Colis.isEmpty()) {
             WarningLabel.setText("Veuillez remplir toutes les champs");
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -115,7 +126,7 @@ public class EnvoyeAddControler {
 
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    int responseId = dao.ajouterEnvoi(voiture, Colis, Env, Email, date, Recep, Contact);
+                    int responseId = dao.ajouterEnvoi(voiture, Colis, Env, emailTxt, date, Recep, Contact);
                     if (responseId != 0) {
                         reset();
                         dao.genererPDF(responseId);

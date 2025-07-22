@@ -73,11 +73,16 @@ public class EnvoyerImpl implements EnvoyerDAO {
 
     @Override
     public Boolean modifierEnvoi(int idenvoi, String colis, String nomEnvoyeur, String emailEnvoyeur,
-                                LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur)
+                                LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur, String idvoit)
     {
         try(Session session = sessionFactory.openSession()){
 
             Transaction tx = session.beginTransaction();
+
+            Voiture v = session.get(Voiture.class, idvoit);
+            if (v == null){
+                return false;
+            }
 
             Envoyer e = session.get(Envoyer.class, idenvoi);
             e.setColis(colis);
@@ -86,6 +91,7 @@ public class EnvoyerImpl implements EnvoyerDAO {
             e.setDate_envoi(date_envoi);
             e.setNomRecepteur(nomRecepteur);
             e.setContactRecepteur(contactRecepteur);
+            e.setVoiture(v);
 
             session.merge(e);
 

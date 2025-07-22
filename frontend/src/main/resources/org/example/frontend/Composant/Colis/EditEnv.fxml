@@ -101,7 +101,7 @@
                 <Insets right="25.0" />
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="Email" layoutX="151.0" layoutY="260.0" prefHeight="35.0" prefWidth="190.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <TextField fx:id="EmailField" layoutX="151.0" layoutY="260.0" prefHeight="35.0" prefWidth="190.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets right="25.0" />
             </GridPane.margin>

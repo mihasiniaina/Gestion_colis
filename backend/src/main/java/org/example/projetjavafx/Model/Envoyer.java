@@ -98,4 +98,8 @@ public class Envoyer {
     public void setArrived(boolean arrived) {
         this.arrived = arrived;
     }
+
+    public void setVoiture(Voiture voiture) {
+        this.voiture = voiture;
+    }
 }

@@ -26,7 +26,7 @@ public class EnvoyerEdditContorller {
     @FXML
     private TextField Envoyeur;
     @FXML
-    private TextField Email;
+    private TextField EmailField;
     @FXML
     private TextField Recepteur;
     @FXML
@@ -47,7 +47,7 @@ public class EnvoyerEdditContorller {
     public String getidenvoie() { return idenvoie.getText(); }
     public String getColis() { return Colis.getText(); }
     public String getEnvoyer() { return Envoyeur.getText(); }
-    public String getEmail() { return Email.getText(); }
+    public String getEmailField() { return EmailField.getText(); }
     public String getVo() { return Voiture.getText(); }
     public String getRecep() { return Recepteur.getText(); }
     public String getContact() { return Contact.getText(); }
@@ -116,12 +116,14 @@ public class EnvoyerEdditContorller {
         Envoyeur.setText("");
         Voiture.setText("");
         Recepteur.setText("");
-        Email.setText("");
+        EmailField.setText("");
         Contact.setText("");
         Colis.setText("");
         WarningLabel.setText("");
     }
-
+    public boolean isValidEmail(String email) {
+        return email != null && email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$");
+    }
     public void Modifier(ActionEvent event) {
         int id;
         try {
@@ -133,7 +135,13 @@ public class EnvoyerEdditContorller {
 
         String voiture = getVo();
         String env = getEnvoyer();
-        String email = getEmail();
+        String email = getEmailField();
+        if (!isValidEmail(email)) {
+            EmailField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+            System.out.println("emailTxt invalide !");
+            return;
+        }
+        EmailField.setStyle("");
         String recepteur = getRecep();
         String contact = getContact();
         String colis = getColis();
@@ -151,7 +159,7 @@ public class EnvoyerEdditContorller {
 
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    Boolean responseModif = dao.modifierEnvoi(id, colis, env, email, date, recepteur, contact);
+                    Boolean responseModif = dao.modifierEnvoi(id, colis, env, email, date, recepteur, contact, voiture);
                     if (responseModif) {
                         if (mainController != null) {
                             mainController.chargerTableView();
@@ -163,7 +171,7 @@ public class EnvoyerEdditContorller {
                         }
                         reset();
                     } else {
-                        WarningLabel.setText("Erreur lors de la modification");
+                        WarningLabel.setText("Erreur lors de la modification. \n Veuillez vérifier les informations");
                     }
                 }
             });

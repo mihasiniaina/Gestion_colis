@@ -11,7 +11,7 @@ public interface EnvoyerDAO {
                         LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur);
     List<Envoyer> listerEnvoi();
     Boolean modifierEnvoi(int idenvoi, String colis, String nomEnvoyeur, String emailEnvoyeur,
-                         LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur);
+                         LocalDateTime date_envoi, String nomRecepteur, String contactRecepteur, String idvoit);
     String supprimerEnvoi(int idenvoi);
     void genererPDF(int idenvoi);
     List<Envoyer> trierColis(LocalDate debut, LocalDate fin);
