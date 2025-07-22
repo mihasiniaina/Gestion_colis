@@ -33,7 +33,6 @@ public class RecevoirImpl implements RecevoirDAO {
 
     @Override
     public void envoyerMail(int idenvoi, LocalDateTime date_recept) {
-
         try(Session sessionBD = sessionFactory.openSession()){
 
             Envoyer e = sessionBD.get(Envoyer.class, idenvoi);
@@ -44,7 +43,6 @@ public class RecevoirImpl implements RecevoirDAO {
             String emailEnvoyeur = e.getEmailEnvoyeur();
             String recepteur = e.getNomRecepteur();
             String colis = e.getColis();
-
 
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -57,29 +55,27 @@ public class RecevoirImpl implements RecevoirDAO {
                     return new PasswordAuthentication(exp, mdp);
                 }
             });
+
             try {
-                // Création du message
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(exp));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailEnvoyeur));
                 message.setSubject(sujet);
+
                 String contenu = Files.readString(Path.of("backend/src/main/resources/email.html"));
-                contenu = contenu.replace("{{date}}", dateFormatee).replace("{{recepteur}}", recepteur)
+                contenu = contenu.replace("{{date}}", dateFormatee)
+                        .replace("{{recepteur}}", recepteur)
                         .replace("{{colis}}", colis);
 
                 message.setContent(contenu, "text/html; charset=UTF-8");
-
-                // Envoi
                 Transport.send(message);
                 System.out.println("E-mail envoyé avec succès !");
             } catch (MessagingException ex) {
                 ex.printStackTrace();
             }
 
-        }catch (Exception e){
-
+        } catch (Exception e) {
             System.err.println("Erreur lors de l'envoi : " + e.getMessage());
-
         }
     }
 
@@ -107,7 +103,57 @@ public class RecevoirImpl implements RecevoirDAO {
             if (tx != null) tx.rollback();
             System.err.println("Erreur lors de l'ajout : " + e.getMessage());
             return null;
+        }
+    }
 
+    @Override
+    public String supprimerRecu(int idrecept) {
+        Transaction tx = null;
+        try(Session session = sessionFactory.openSession()){
+
+            tx = session.beginTransaction();
+
+            Recevoir r = session.get(Recevoir.class, idrecept);
+
+            if (r != null) {
+                Envoyer e = r.getEnvoyer();
+                e.setArrived(false); // Remet à false
+
+                session.remove(r);
+                session.merge(e); // Met à jour Envoyer
+                tx.commit();
+
+                return "Suppression réussie";
+            } else {
+                if (tx != null) tx.rollback();
+                return "Réception introuvable";
+            }
+
+        }catch (Exception e){
+            if (tx != null) tx.rollback();
+            System.err.println("Erreur lors de la suppression : " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public String modifierRecu(int idrecept, LocalDateTime date_recept) {
+        Transaction tx = null;
+        try(Session session = sessionFactory.openSession()){
+
+            tx = session.beginTransaction();
+
+            Recevoir r = session.get(Recevoir.class, idrecept);
+            r.setDate_recept(date_recept);
+
+            session.merge(r);
+            tx.commit();
+
+            return "Modification réussie";
+
+        }catch (Exception e){
+            if (tx != null) tx.rollback();
+            return null;
         }
     }
 
@@ -115,7 +161,7 @@ public class RecevoirImpl implements RecevoirDAO {
     public List<TableauRecevoir> listerRecu() {
         try(Session session = sessionFactory.openSession()){
 
-            Query<Envoyer> query = session.createQuery("FROM Envoyer ", Envoyer.class);
+            Query<Envoyer> query = session.createQuery("FROM Envoyer", Envoyer.class);
             List<Envoyer> liste  =  query.list();
 
             List<TableauRecevoir> tableauRecevoirList = new ArrayList<>();
@@ -127,7 +173,8 @@ public class RecevoirImpl implements RecevoirDAO {
 
             return tableauRecevoirList;
 
-        }catch (Exception e){
+        } catch (Exception e){
+            System.err.println("Erreur lors du listing : " + e.getMessage());
             return null;
         }
     }
@@ -144,47 +191,6 @@ public class RecevoirImpl implements RecevoirDAO {
                 e.getContactRecepteur(),
                 e.isArrived()
         );
-    }
-
-    @Override
-    public String modifierRecu(int idrecept, LocalDateTime date_recept) {
-        Transaction tx = null;
-        try(Session session = sessionFactory.openSession()){
-
-            tx = session.beginTransaction();
-
-            Recevoir r = session.get(Recevoir.class, idrecept);
-            r.setDate_recept(date_recept);
-
-            session.merge(r);
-
-            tx.commit();
-
-            return "Modification réussie";
-
-        }catch (Exception e){
-            if (tx != null) tx.rollback();
-            return null;
-        }
-    }
-
-    @Override
-    public String supprimerRecu(int idrecept) {
-        Transaction tx = null;
-        try(Session session = sessionFactory.openSession()){
-
-            tx = session.beginTransaction();
-            Recevoir r = session.get(Recevoir.class, idrecept);
-
-            session.remove(r);
-            tx.commit();
-
-            return "Suppression réussie";
-
-        }catch (Exception e){
-            if (tx != null) tx.rollback();
-            return null;
-        }
     }
 
     @Override
@@ -209,6 +215,7 @@ public class RecevoirImpl implements RecevoirDAO {
             return tableauRecevoirList;
 
         }catch (Exception e){
+            System.err.println("Erreur lors du tri : " + e.getMessage());
             return null;
         }
     }
@@ -219,9 +226,9 @@ public class RecevoirImpl implements RecevoirDAO {
 
             Query<Envoyer> query = session.createQuery("FROM Envoyer e WHERE e.idenvoi = :idenvoi OR e.colis LIKE :colis", Envoyer.class);
             query.setParameter("idenvoi", idenvoi);
-            query.setParameter("colis", "%"+colis+"%");
+            query.setParameter("colis", "%" + colis + "%");
 
-            List<Envoyer> listeEnvoyer  =  query.list();
+            List<Envoyer> listeEnvoyer = query.list();
             List<TableauRecevoir> tableauRecevoirList = new ArrayList<>();
 
             for (Envoyer e : listeEnvoyer){
@@ -231,9 +238,22 @@ public class RecevoirImpl implements RecevoirDAO {
 
             return tableauRecevoirList;
 
-        }catch (Exception e){
+        } catch (Exception e){
+            System.err.println("Erreur lors de la recherche : " + e.getMessage());
             return null;
         }
     }
 
+    @Override
+    public Integer getIdRecevoirByIdEnvoi(int idenvoi) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT r.idrecept FROM Recevoir r WHERE r.envoyer.idenvoi = :idenvoi";
+            return session.createQuery(hql, Integer.class)
+                    .setParameter("idenvoi", idenvoi)
+                    .uniqueResult();
+        } catch (Exception e) {
+            System.err.println("Erreur getIdRecevoirByIdEnvoi: " + e.getMessage());
+            return null;
+        }
+    }
 }

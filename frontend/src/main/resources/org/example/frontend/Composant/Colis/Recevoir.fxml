@@ -14,10 +14,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="712.0" prefWidth="1248.0" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="712.0" prefWidth="1248.0" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.frontend.controllers.Colis.RecevoirController">
     <children>
-        <TextField layoutX="448.0" layoutY="14.0" prefHeight="45.0" prefWidth="375.0" promptText="Rechercher un colis" style="-fx-background-radius: 20; -fx-border-color: #20323D; -fx-border-radius: 20;" />
-        <Button layoutX="759.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+        <TextField fx:id="SearchBarre" layoutX="448.0" layoutY="14.0" prefHeight="45.0" prefWidth="375.0" promptText="Rechercher un colis" style="-fx-background-radius: 20; -fx-border-color: #20323D; -fx-border-radius: 20;" />
+        <Button fx:id="SearchBtn" layoutX="759.0" layoutY="14.0" mnemonicParsing="false" onAction="#Rechercher" style="-fx-background-color: transparent;">
             <graphic>
                 <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -32,36 +32,43 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <DatePicker prefHeight="40.0" prefWidth="198.0" style="-fx-background-radius: 20; -fx-border-color: #20323D;" />
+                <DatePicker fx:id="Date1" prefHeight="40.0" prefWidth="198.0" style="-fx-background-radius: 20; -fx-border-color: #20323D;" />
                 <Label text="au" textFill="#20323d">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <DatePicker prefHeight="40.0" prefWidth="198.0" style="-fx-border-color: #20323D;" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Trier" textFill="#f8f3f3">
+                <DatePicker fx:id="Date2" prefHeight="40.0" prefWidth="198.0" style="-fx-border-color: #20323D;" />
+                <Button fx:id="TrierBtn" mnemonicParsing="false" onAction="#Trier" prefHeight="40.0" prefWidth="78.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Trier" textFill="#f8f3f3">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Button>
+            <Button fx:id="Rafraichir" layoutX="509.0" layoutY="20.0" mnemonicParsing="false" onAction="#Actualiser" prefHeight="40.0" prefWidth="78.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" textFill="#f8f3f3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/icons8-rafraîchir-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
                 <Region prefHeight="59.0" prefWidth="464.0" />
-                <Button layoutX="956.0" layoutY="11.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #20323D; -fx-background-radius: 10;" text="Modifier" textFill="#f2f4f5">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Button>
             </children>
         </HBox>
-        <TableView layoutX="12.0" layoutY="163.0" prefHeight="536.0" prefWidth="1224.0" styleClass="DivFlottant">
+        <TableView fx:id="Table" layoutX="12.0" layoutY="163.0" prefHeight="536.0" prefWidth="1224.0" styleClass="DivFlottant">
             <columns>
-                <TableColumn prefWidth="101.0" styleClass="HeaderTableView" text="IdEnvoie" />
-                <TableColumn prefWidth="168.0" styleClass="HeaderTableView" text="Date Envoye" />
-                <TableColumn prefWidth="149.0" styleClass="HeaderTableView" text="Colis" />
-                <TableColumn prefWidth="167.0" styleClass="HeaderTableView" text="Date  récéption" />
-                <TableColumn prefWidth="241.0" styleClass="HeaderTableView" text="Récéptionneur" />
-                <TableColumn prefWidth="187.0" styleClass="HeaderTableView" text="Contact" />
-            <TableColumn prefWidth="137.0" styleClass="HeaderTableView" text="Status" />
-            <TableColumn prefWidth="73.0" styleClass="HeaderTableView" />
+                <TableColumn fx:id="Id" prefWidth="101.0" styleClass="HeaderTableView" text="IdEnvoie" />
+                <TableColumn fx:id="DtEnvoye" prefWidth="168.0" styleClass="HeaderTableView" text="Date Envoye" />
+                <TableColumn fx:id="Colis" prefWidth="149.0" styleClass="HeaderTableView" text="Colis" />
+                <TableColumn fx:id="DtReception" prefWidth="185.0" styleClass="HeaderTableView" text="Date  récéption" />
+                <TableColumn fx:id="Recepteur" prefWidth="223.0" styleClass="HeaderTableView" text="Déstinataire" />
+                <TableColumn fx:id="Contact" prefWidth="187.0" styleClass="HeaderTableView" text="Contact" />
+            <TableColumn fx:id="Status" prefWidth="137.0" styleClass="HeaderTableView" text="Status" />
+            <TableColumn fx:id="BtnColonne" prefWidth="73.0" styleClass="HeaderTableView" />
             </columns>
         </TableView>
         <StackPane fx:id="RecevoirForm" layoutX="1224.0" layoutY="163.0" prefHeight="536.0" prefWidth="11.0" />
