@@ -16,5 +16,6 @@ public interface RecevoirDAO {
     String supprimerRecu(int idrecept);
     List<TableauRecevoir> trierColis(LocalDate debut, LocalDate fin);
     List<TableauRecevoir> chercherColis (int idenvoi, String colis);
+    Integer getIdRecevoirByIdEnvoi(int idenvoi);
 
 }
