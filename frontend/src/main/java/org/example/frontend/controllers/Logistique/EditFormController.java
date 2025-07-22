@@ -45,11 +45,11 @@ public class EditFormController {
     }
 
     public void Warning (){
-        WarningEditItineraire.setText("Veuillez remplir toutes les champs");
+        WarningEditItineraire.setText("Veuillez remplir tous les champs");
     }
 
     public void Warning1(){
-        WarningEditItineraire.setText("Itinéraire déja existente");
+        WarningEditItineraire.setText("Itinéraire déjà existante");
     }
 
 

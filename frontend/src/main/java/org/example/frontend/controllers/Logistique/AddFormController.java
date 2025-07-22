@@ -47,7 +47,7 @@ public class AddFormController {
     }
 
     public void Warning1(){
-        WarningAddItineraire.setText("Cette itinéraire existe déjà");
+        WarningAddItineraire.setText("Cette itinéraire déjà existante");
     }
     public  void resetWarning(){WarningAddItineraire.setText("");}
 
